@@ -33,7 +33,10 @@ Route::controller(adminController::class)->group(function(){
     Route::get('/admin/programs-amount', 'programsAmount')->name('admin_program_amount');
     Route::get('/admin/logout', 'showLogout')->name('admin_logout_');
     Route::get('/admin/programs', 'programs')->name('admin_program_');
-    Route::get('/admin/transactions', 'transactions')->name('admin_transactions_');
+    Route::get('/admin/access-settings', 'accessSettings')->name('admin_access_settings_');
+    Route::post('/admin/access-settings', 'createAdminUser')->name('admin_save_access_settings_');
+    Route::get('/admin/programs', 'programs')->name('admin_program_');
+    Route::delete('/admin/delete-Admin-user/{id}', 'deleteAdminUser')->name('admin_delete_admin_');
 
 
 });

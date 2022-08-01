@@ -241,14 +241,7 @@
 
             </li>
 
-            <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="nav-icon fa fa-users"></i>
-                <p>
-                  Applicants O-level
-                </p>
-              </a>
-            </li>
+            
 
             <li class="nav-item">
               <a href="" class="nav-link">
@@ -260,7 +253,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <a href="{{route('admin_access_settings_')}}" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Access Settings
@@ -268,6 +261,7 @@
                 </p>
               </a>
             </li>
+
 
             <li class="nav-header"></li>
 
