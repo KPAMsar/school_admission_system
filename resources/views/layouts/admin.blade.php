@@ -185,8 +185,14 @@
           <div class="info">
             <a href="" class="d-block">{{Auth::user()->name}}</a>
           </div>
+          <br>
+         
         </div>
-
+        @if(Auth::user()->Role == 'SuperAdmin')
+            <div class="info">
+            <small><a href="" class="d-block" style="text-align:">Super Admin</a></small>
+          </div>
+            @endif
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -231,7 +237,7 @@
 
 
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <a href="{{route('admin_transaction_')}}" class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
                   <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
@@ -244,7 +250,7 @@
             
 
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <a href="{{route('admin_settings_')}}" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Settings
@@ -252,16 +258,16 @@
                 </p>
               </a>
             </li>
+            @if(Auth::user()->Role == 'SuperAdmin')
             <li class="nav-item">
               <a href="{{route('admin_access_settings_')}}" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Access Settings
-
+                Access Settings
                 </p>
               </a>
             </li>
-
+            @endif
 
             <li class="nav-header"></li>
 

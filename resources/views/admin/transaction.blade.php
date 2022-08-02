@@ -40,6 +40,7 @@
                         <thead>
                             <tr>
                                 <th>s/n</th>
+                                <th>User</th>
                                 <th>Payment Method</th>
                                 <th>Reference </th>
                                 <th>Paymant Type</th>
@@ -47,17 +48,21 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($transaction as $key => $payment)
                             <tr>
-                                <td>Trident</td>
-                                <td>Win 95+</td>
-                                <td> 4</td>
-                                <td>X</td>
-                                <td>X</td>
+                                <td>{{$key + 1}}</td>
+                                <td>{{$payment->user}}</td>
+                                <td>{{$payment->payment_method}}</td>
+                                <td>{{$payment->reference }}</td>
+                                <td>{{$payment->payment_type }}</td>
+                                <td>{{$payment->status}}</td>
                             </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>s/n</th>
+                            <th>s/n</th>
+                                <th>User</th>
                                 <th>Payment Method</th>
                                 <th>Reference </th>
                                 <th>Paymant Type</th>

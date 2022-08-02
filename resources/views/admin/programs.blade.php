@@ -45,26 +45,41 @@
                                     <th>Course</th>
                                     <th>Department</th>
                                     <th>Faculty</th>
+                                    <th>Duration</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($programs as $key => $data)
                                 <tr>
-                                    <td>Trident</td>
-                                    <td>Win 95+</td>
-                                    <td> 4</td>
-                                    <td>X</td>
-                                    <td>X</td>
-                                    <td>X</td>
+                                    <td>{{$key + 1}}</td>
+                                    <td>{{$data->degree_awarded}}</td>
+                                    <td> {{$data->course}}</td>
+                                    <td>{{$data->department}}</td>
+                                    <td>{{$data->faculty}}</td>
+                                    <td>{{$data->duration}}</td>
+                                    <td class="text-right">
+                                        <div class="actions">
+
+                                            <a href="" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{{route('admin_delete_program_',$data->id)}}" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>s/n</th>
+                                <th>s/n</th>
                                     <th>Degree Awarded</th>
                                     <th>Course</th>
                                     <th>Department</th>
                                     <th>Faculty</th>
+                                    <th>Duration</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
@@ -136,7 +151,7 @@
                         </div>
                         <div class="col-md-12">
                             <label for="">Duration</label>
-                            <input type="text" class="form-control" placeholder="Duration" name="duration">
+                            <input type="text" class="form-control" placeholder="Duration" name="duration   ">
                         </div>
                     </div>
                 </div>
@@ -149,6 +164,54 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form action="#" method="">
+            
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <div class="form-group row">
+                <div class="col-md-12" style="text-align:center;">
+                  <label for="">You are about to delete  a program
+                    <br>
+                    This action is irreversible.
+                  </label>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="row">
+                <div class="">
+                  <div class="modal-footer">
+                      <a href="{{ route('admin_home')}}">
+                        <button type="button" class="btn btn-primary" style="float:left;">Cancel</button>
+                      </a>
+                </div>
+                </div>
+                <div class="col">
+                  <div class="modal-footer">
+                  <a href="{{ route('logout')}}">
+                    <button type="button" class="btn btn-danger" style="float:right;">Delete</button>
+                  </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
 @endsection
 
 

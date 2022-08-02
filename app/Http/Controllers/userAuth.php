@@ -13,18 +13,16 @@ class userAuth extends Controller
 
 
     public function index(){
-        // if(Auth::user()->Role === 'Admin'){
-        //     return redirect()->route('admin_home');
-        // }
-        // elseif(Auth::user()->Role == 'Applicant'){
-        //     return redirect()->route('applicant_home');
-        // }
 
         if(Auth::user()->Role == 'Admin'){
             return redirect(Route('admin_home'));
         }
         else if(Auth::user()->Role == 'Applicant'){
             return redirect(Route('applicant_home'));
+        
+        }
+        else if(Auth::user()->Role == 'SuperAdmin'){
+            return redirect()->Route('admin_home');
         
         }
     }

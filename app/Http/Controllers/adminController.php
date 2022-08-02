@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\admin;
 use App\Models\progamount;
 use App\Models\programs;
+use App\Models\Transation;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class adminController extends Controller
@@ -21,7 +24,14 @@ class adminController extends Controller
         return view('admin.index');
     }
     public function programs(){
-        return view('admin.programs');
+        $programs = programs::all();
+        return view('admin.programs',['programs'=>$programs]);
+    }
+
+    public function deleteProgram($id){
+        // programs::find($id)->delete();
+        // return redirect()->route('admin.programs')->with('success','Operation sucessfull..');
+
     }
     public function programsAmount(){
         $data = progamount::all();
@@ -103,27 +113,65 @@ class adminController extends Controller
     }
 
     public function savePrograms(Request $request){
-        // $request->validate([
-        //     'degree_awarded'=>'required',
-        //     'course'=>'required',
-        //     'department'=>'required',
-        //     'faculty'=>'required',
+         $request->validate([
+             'degree_awarded'=>'required',
+             'course'=>'required',
+             'department'=>'required',
+             'faculty'=>'required',
         //     'status'=>'required',
-        //     'duration'=>'required',
+             'duration'=>'required',
         //     'affliation'=>'required',
-        // ]);
+         ]);
 
         programs::create([
             'degree_awarded'=>$request->degree_awarded,
             'course'=>$request->course,
             'department'=>$request->department,
             'faculty'=>$request->faculty,
-            'status'=>$request->status,
             'duration'=>$request->duration,
-            'status'=>'Opened',
         ]);
 
         return redirect()->route('admin_program_')->with('success','Operation Sucessful');
         
     }
+
+    public function transaction(){
+        $transaction = Transation::all();
+
+        return view('admin.transaction',['transaction'=> $transaction]);
+    }
+
+    public function settings(){
+        return view('settings');
+    }
+
+    public function updatePassword(Request $request, $id){
+        $user = Auth::user();
+        $old_password = $user->password;
+        $new_password = $request->password;  
+        
+        $request->validate([
+            'old_password'=>'required',
+            'new_password'=>'required |min:8',
+            'confirm_password'=>'requird |confirmed' ,
+        ]);
+            
+        // if(Auth::check($old_password,$new_password) ){
+        //     User::find(auth()->user())->update(['password'=> Hash::make($request->new_password)]);
+        // }
+        
+        #Match The Old Password
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+
+
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("success", "Password changed successfully!");
+}
+
 }
