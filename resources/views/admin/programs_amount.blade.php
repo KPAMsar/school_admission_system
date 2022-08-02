@@ -16,7 +16,7 @@
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">General Form</li>
                     </ol> -->
-              
+
 
                 </div>
             </div>
@@ -24,75 +24,87 @@
     </section>
 
     <!-- Main content -->
-  
 
-<div class="container">
-    <div class="row">
-        <div class="col">
 
-            <div class="card">
-           
-            <div class="col-auto text-right float-right ml-auto" style="padding-top:6px;">
-                <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-info btn-sm" >Add Amount</a>
-            </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                        <thead>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <div class="card">
+
+                    <div class="col-auto text-right float-right ml-auto" style="padding-top:6px;">
+                        <a href="#" data-toggle="modal" data-target="#addAmount" class="btn btn-info btn-sm">Add Amount</a>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>s/n</th>
+                                    <th>Programme</th>
+                                    <th>Entry Mode</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($data as $key =>$item)
+                                <tr>
+                                    <td>{{$key + 1}}</td>
+                                    <td>{{$item->programme}}</td>
+                                    <td> {{$item->entry_mode}}</td>
+                                    <td>{{$item->amount}}</td>
+                                    <td class="text-right">
+                                        <div class="actions">
+
+                                            <a href="" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
                             <tr>
-                                <th>s/n</th>
-                                <th>Programme</th>
-                                <th>Entry Mode</th>
-                                <th>Amount</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Trident</td>
-                                <td>Win 95+</td>
-                                <td> 4</td>
-                                <td>X</td>
-                                <td>X</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>s/n</th>
-                                <th>Programme</th>
-                                <th>Entry Mode</th>
-                                <th>Amount</th>
-                                <th>Action</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                                    <th>s/n</th>
+                                    <th>Programme</th>
+                                    <th>Entry Mode</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.card-body -->
+                <!-- /.card -->
             </div>
-            <!-- /.card -->
+            <!-- /.col -->
         </div>
-        <!-- /.col -->
+        <!-- /.row -->
     </div>
-    <!-- /.row -->
-</div>
-<!-- /.container-fluid -->
-</section>
-                </div>
-
-
-            </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
+    <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
+</div>
+
+
+</div>
+<!-- /.row -->
+</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 </div>
 
 
 <!-- MODAL -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addAmount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="#" method="post">
+            <form action="{{route('admin_save_program_')}}" method="post">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add Program Amount</h5>
@@ -100,7 +112,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-               
+
                 <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-md-12">
@@ -109,7 +121,14 @@
                         </div>
                         <div class="col-md-12">
                             <label for="">Entry Mode</label>
-                            <input type="text" class="form-control" placeholder="Entry Mode" name="entry_mode">
+                            <select class="form-control show-tick" name="entry_mode">
+                                <option value="">-- Select --</option>
+                                <option value="Bsc">BSC</option>
+                                <option value="HND">HND</option>
+                                <option value="NC">NC</option>
+                               
+
+                            </select>
                         </div>
                         <div class="col-md-12">
                             <label for="">Amount</label>
@@ -117,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-               
+
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
@@ -163,13 +182,13 @@
         });
 
 
-        
+
     });
 
     $(document).ready(function() {
-    $("#myBtn").click(function() {
-        $("#myModal").modal("show");
+        $("#myBtn").click(function() {
+            $("#myModal").modal("show");
+        });
     });
-});
 </script>
 @endsection

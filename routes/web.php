@@ -31,8 +31,11 @@ Route::controller(adminController::class)->group(function(){
     Route::get('/admin', 'index')->name('admin_home');
     Route::get('/admin/applicants', 'showApplicants')->name('admin_show_applicant');
     Route::get('/admin/programs-amount', 'programsAmount')->name('admin_program_amount');
+    Route::post('/admin/applicants', 'savePaymentAmount')->name('admin_save_program_');
+
     Route::get('/admin/logout', 'showLogout')->name('admin_logout_');
     Route::get('/admin/programs', 'programs')->name('admin_program_');
+    Route::post('/admin/programs', 'savePrograms')->name('admin_save_program_');
     Route::get('/admin/access-settings', 'accessSettings')->name('admin_access_settings_');
     Route::post('/admin/access-settings', 'createAdminUser')->name('admin_save_access_settings_');
     Route::get('/admin/programs', 'programs')->name('admin_program_');

@@ -7,6 +7,8 @@ use App\Models\applicant;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\admin;
+use App\Models\progamount;
+use App\Models\programs;
 
 
 class adminController extends Controller
@@ -22,7 +24,8 @@ class adminController extends Controller
         return view('admin.programs');
     }
     public function programsAmount(){
-        return view('admin.programs_amount');
+        $data = progamount::all();
+        return view('admin.programs_amount',['data' => $data]);
     }
     public function transactions(){
         return view('admin.transaction');
@@ -32,7 +35,7 @@ class adminController extends Controller
     }
     public function showApplicants(){
         $applicant = applicant::all();
-        return view('admin.applicants',['applicant']);
+        return view('admin.applicants',['applicant'=>$applicant]);
     }
 
     public function accessSettings(){
@@ -75,11 +78,52 @@ class adminController extends Controller
     }
 
     public function deleteAdminUser($id){
-        $admin = admin::finf($id)->delete();
+        $admin = admin::find($id)->delete();
         return redirect()->route('admin_access_settings_')->with('success','Operation Succesfull..');
     }
 
     public function cancel(){
         return back();
+    }
+
+    public function savePaymentAmount(Request $request){
+        $request->validate([
+            'programme'=>'required',
+            'entry_mode'=>'required',
+            'amount'=>'required'
+        ]);
+
+        progamount::create([
+            'programme'=>$request->programme,
+            'entry_mode'=>$request->entry_mode,
+            'amount'=>$request->amount
+        ]);
+        return redirect()->route('admin_program_amount')->with('Operation Successful..');
+
+    }
+
+    public function savePrograms(Request $request){
+        // $request->validate([
+        //     'degree_awarded'=>'required',
+        //     'course'=>'required',
+        //     'department'=>'required',
+        //     'faculty'=>'required',
+        //     'status'=>'required',
+        //     'duration'=>'required',
+        //     'affliation'=>'required',
+        // ]);
+
+        programs::create([
+            'degree_awarded'=>$request->degree_awarded,
+            'course'=>$request->course,
+            'department'=>$request->department,
+            'faculty'=>$request->faculty,
+            'status'=>$request->status,
+            'duration'=>$request->duration,
+            'status'=>'Opened',
+        ]);
+
+        return redirect()->route('admin_program_')->with('success','Operation Sucessful');
+        
     }
 }

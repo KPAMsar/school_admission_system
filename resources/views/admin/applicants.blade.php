@@ -40,27 +40,42 @@
                         <thead>
                             <tr>
                                 <th>s/n</th>
-                                <th>Payment Method</th>
-                                <th>Reference </th>
-                                <th>Paymant Type</th>
+                                <th>Application Number</th>
+                                <th>Program</th>
+                                <th>Mode of Entry </th>
+                                <th>Session</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($applicant as $key => $data)
                             <tr>
-                                <td>Trident</td>
-                                <td>Win 95+</td>
-                                <td> 4</td>
-                                <td>X</td>
-                                <td>X</td>
+                                <td>{{$key + 1}}</td>
+                                <td>{{$data->application_number}}</td>
+                                <td> {{$data->program}}</td>
+                                <td>{{$data->mode_of_entry}}</td>
+                                <td>{{$data->session}}</td>
+                                <td class="text-right">
+                                        <div class="actions">
+
+                                            <a href="" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
                             </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>s/n</th>
-                                <th>Payment Method</th>
-                                <th>Reference </th>
-                                <th>Paymant Type</th>
+                                <th>Application Number</th>
+                                <th>Program</th>
+                                <th>Mode of Entry </th>
+                                <th>Session</th>
                                 <th>Status</th>
                             </tr>
                         </tfoot>

@@ -16,7 +16,7 @@
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">General Form</li>
                     </ol> -->
-              
+
 
                 </div>
             </div>
@@ -24,71 +24,71 @@
     </section>
 
     <!-- Main content -->
-  
 
-<div class="container">
-    <div class="row">
-        <div class="col">
 
-            <div class="card">
-           
-            <div class="col-auto text-right float-right ml-auto" style="padding-top:6px;">
-                <a href="#" data-toggle="modal" data-target="#programs" class="btn btn-info btn-sm" >New Program</a>
-            </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>s/n</th>
-                                <th>Degree Awarded</th>
-                                <th>Course</th>
-                                <th>Department</th>
-                                <th>Faculty</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Trident</td>
-                                <td>Win 95+</td>
-                                <td> 4</td>
-                                <td>X</td>
-                                <td>X</td>
-                                <td>X</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                            <th>s/n</th>
-                                <th>Degree Awarded</th>
-                                <th>Course</th>
-                                <th>Department</th>
-                                <th>Faculty</th>
-                                <th>Action</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                   
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <div class="card">
+
+                    <div class="col-auto text-right float-right ml-auto" style="padding-top:6px;">
+                        <a href="#" data-toggle="modal" data-target="#programs" class="btn btn-info btn-sm">New Program</a>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>s/n</th>
+                                    <th>Degree Awarded</th>
+                                    <th>Course</th>
+                                    <th>Department</th>
+                                    <th>Faculty</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Win 95+</td>
+                                    <td> 4</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>s/n</th>
+                                    <th>Degree Awarded</th>
+                                    <th>Course</th>
+                                    <th>Department</th>
+                                    <th>Faculty</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.card-body -->
+                <!-- /.card -->
             </div>
-            <!-- /.card -->
+            <!-- /.col -->
         </div>
-        <!-- /.col -->
+        <!-- /.row -->
     </div>
-    <!-- /.row -->
-</div>
-<!-- /.container-fluid -->
-</section>
-                </div>
-
-
-            </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
+    <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
+</div>
+
+
+</div>
+<!-- /.row -->
+</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 </div>
 
 
@@ -96,15 +96,15 @@
 <div class="modal fade" id="programs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="#" method="post">
+            <form action="{{route('admin_save_program_')}}" method="post">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Program Amount</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Program</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-               
+
                 <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-md-12">
@@ -112,16 +112,35 @@
                             <input type="text" class="form-control" placeholder="Programme" name="programme">
                         </div>
                         <div class="col-md-12">
-                            <label for="">Entry Mode</label>
-                            <input type="text" class="form-control" placeholder="Entry Mode" name="entry_mode">
+                            <label for="">Degree Awarded</label>
+                            <select class="form-control show-tick" name="degree_awarded" id="degree_awarded">
+                                <option value="">-- Select --</option>
+                                <option value="BSc" >BSc</option>
+                                <option value="HND" >HND</option>
+                                <option value="OND" >OND</option>
+                                <option value="ND" >ND</option>
+
+                            </select>
                         </div>
                         <div class="col-md-12">
-                            <label for="">Amount</label>
-                            <input type="number" class="form-control" placeholder="Amount" name="amount">
+                            <label for="">Course</label>
+                            <input type="text" class="form-control" placeholder="Course" name="course">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Department</label>
+                            <input type="text" class="form-control" placeholder="Department" name="department">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Faculty</label>
+                            <input type="text" class="form-control" placeholder="Faculty" name="faculty">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Duration</label>
+                            <input type="text" class="form-control" placeholder="Duration" name="duration">
                         </div>
                     </div>
                 </div>
-               
+
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
@@ -167,13 +186,13 @@
         });
 
 
-        
+
     });
 
     $(document).ready(function() {
-    $("#myBtn").click(function() {
-        $("#myModal").modal("show");
+        $("#myBtn").click(function() {
+            $("#myModal").modal("show");
+        });
     });
-});
 </script>
 @endsection
