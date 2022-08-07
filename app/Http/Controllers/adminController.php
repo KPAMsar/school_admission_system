@@ -49,27 +49,28 @@ class adminController extends Controller
     }
 
     public function accessSettings(){
+        $user = User::where('Role','Admin')->get();
         $admin = admin::all();
-        return view('admin.access_settings',['admin'=>$admin]);
+        return view('admin.access_settings',['admin'=>$admin,'user'=>$user]);
     }
 
     public function createAdminUser(Request $request){
-         $request->validate([
-             'first_name'=>'required',
-             'last_name'=>'required',
-             'other_names'=>'required',
-             'phone_number'=>'required',
-             'email'=>'required | unique',
-             'phone_number'=>'required',
-             'password'=>'required | confirmed |min:6',
+        //   $request->validate([
+        //      'first_name'=>'required',
+        //       'last_name'=>'required',
+        //       'other_names'=>'required',
+        //       'phone_number'=>'required',
+        //       'email'=>'required' ,
+        //      'phone_number'=>'required',
+        //       'password'=>'required | confirmed',
 
-         ]);
+        //   ]);
 
         DB::transaction( function() use ($request){
             User::create([
                 'name'=>$request->first_name . ' '. $request->last_name . ' '. $request->other_names,
                 'email'=>$request->email,
-                'password'=>$request->password,
+                'password'=>Hash::make($request->password),
                 'role'=>'Admin',
             ]);
 

@@ -49,7 +49,9 @@
                             </thead>
                             <tbody>
                                 @foreach($admin as $key=> $data)
-                                <tr>
+
+                                  
+                                    <tr>
                                     <td>{{$key + 1}}</td>
                                     <td>{{$data->first_name . ' '.$data->last_name .' '.$data->other_names}}</td>
                                     <td>{{$data->phone_number}}</td>
@@ -58,7 +60,7 @@
                                         <div class="actions">
 
                                             <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal" data-target="#editModal">
-                                                <i class="fas fa-edit"></i>
+                                                <i class="fas fa-toggle"></i>
                                             </a>
                                             <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal" data-target="#deleteModal" href="" class="btn btn-sm bg-danger-light">
                                                 <i class="fas fa-trash"></i>
@@ -66,6 +68,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                   
                                 @endforeach
                             </tbody>
                             <tfoot>

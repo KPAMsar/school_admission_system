@@ -7,6 +7,8 @@ use App\Models\biodata;
 use Jajo\NG;
 use App\Models\applicant;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
+
 
 class applicantController extends Controller
 {
@@ -19,8 +21,19 @@ class applicantController extends Controller
     }
 
     public function bioData(){
-        
-        return view('applicants.bio_data');
+        $ng = new NG();
+        $name = $ng->states;
+
+        $applicant = applicant::where('application_number', Session::get('application_number'))->first();
+         return view('applicants.bio_data',['states'=>$name, 'applicant'=>$applicant]);
+    
+}
+
+    public function sendApplicantState(Request $request){
+        $sendData = $request->all();
+        $ng = new NG();
+        $lga = $ng->getLGA($sendData['state']);
+        return response()->json(array($lga),200);
     }
 
     public function saveBioData(Request $request){
@@ -47,9 +60,11 @@ class applicantController extends Controller
             'nok_lga_of_residence' =>'required',
             'nok_phone_number'=>'required',
             'nok_email'=>'required |email',
+            'application_number'=>'required',
         ]);
      
         biodata::create([
+            'application_number'=>Session::get('application_number'),
             'address_1'=>$request['address_1'],
             'city_1 '=>$request['city_1'],
            ' address_2'=>$request['address_2'],
@@ -100,8 +115,7 @@ class applicantController extends Controller
         //      'other_names'=>'required',
         //      'phone'=>'required',
         //  ]);
-
-        applicant::create([
+            $applicant = applicant::create([
             'programme'=>'DEGREE',
             'mode_of_entry'=>$request['mode_of_entry'],
             'session'=>$request['session'],
@@ -109,21 +123,23 @@ class applicantController extends Controller
             'last_name'=>$request[ 'last_name'],
             'other_names'=>$request['other_names'],
             'phone'=>$request['phone_number'],
+            
+       
+
         ]);
-        // $applicant = applicant::Find($id);
-        // //Updaating application nummber 
-        // $code = $applicant->id < 1000 ? str_repeat("0", (4 - strlen("$applicant->id"))) . $applicant->id : $applicant->id;
-        // $application_no = getenv('SCHOOL_SHORT_CODE') . '-' . date('y') . '-' . $code;
 
-        // $applicant->update([
-        //     'application_number' => $application_no
-        // ]);
+        //create the application number
+        $code = $applicant->id < 1000 ? str_repeat("0", (4 - strlen("$applicant->id"))) . $applicant->id : $applicant->id;
+        $application_no = getenv('SCHOOL_SHORT_CODE') . '-' . $code;
 
-        //     //Adding application number to session 
-        // Session::put('application_number', $application_no);
+        $applicant->update([
+            'application_number' => $application_no
+        ]);
+        
+        Session::put('application_number',$application_no);
 
 
-        return redirect()->route('applicant_home')->with('success','Operation Succesful.. ');
+        return redirect()->route('applicant_bio_data')->with('success','Operation Succesful.. ');
 
     }
 }

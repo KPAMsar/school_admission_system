@@ -15,13 +15,13 @@
             <section class="content-header">
                 <div class="container">
                 
-                <div class="card">
+                <div class="">
                 <div class="container">
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="">
                 <div class="header">
-                    <h2><strong>Hello name of applicant</strong>
+                    <h2><strong>Hello {{Auth::user()->name }},</strong>
                     </h2>
 
                 </div>
@@ -30,14 +30,19 @@
 
                     <div class="body">
                         <p>This is your space. You can stay updated regarding the state of your application by visiting this space regularly and also checking your admission status.</p>
-                        <p>Thank you for your interest in our school, we wish you the best of luck in your application.</p>
+                        <p>Thank you for your interest in our school, we wish you the best of luck in your application.
+                            <br><br>
+                        Click below to start your application.
+                        </p>
 
                     </div>
                 </form>
     <br>
                 <div class="col-md-6 ">
                     <div class="form-group">
+                        <a href="{{route('applicant_application_Start')}}">
                         <input type="button" class="btn btn-primary" value=" Start Application">
+                        </a>
                     </div>
                 </div>
             </div>

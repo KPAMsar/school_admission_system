@@ -204,7 +204,7 @@
           <a href="" class="nav-link">
             <i class="nav-icon fa fa-users"></i>
             <p>
-              Profile
+              Admission Status
             </p>
           </a>
         </li>
@@ -217,6 +217,14 @@
             </p>
           </a>
 
+        </li>
+        <li class="nav-item">
+          <a href="" class="nav-link">
+            <i class="nav-icon fa fa-users"></i>
+            <p>
+              Print Slip
+            </p>
+          </a>
         </li>
       
 
@@ -347,5 +355,6 @@
 <script src="{{ url('assets/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('assets/js/pages/dashboard.js')}}"></script>
+@yield('script')
 </body>
 </html>
