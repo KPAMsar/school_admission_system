@@ -22,8 +22,10 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('other_names')->nullable();
             $table->string('phone');
+            $table->string('email');
+            $table->string('password');
             $table->string('application_number')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

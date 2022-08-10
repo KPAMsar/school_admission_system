@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\applicantController;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userAuth;
+use App\Http\Controllers\noAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,9 +53,10 @@ Route::controller(adminController::class)->group(function(){
 Route::controller(applicantController::class)->group(function(){
     Route::get('/applicant', 'index')->name('applicant_home');
     Route::get('/bio-data', 'bioData')->name('applicant_bio_data');
-    Route::post('/start-application', 'saveApplicant')->name('applicant_save_application_start');
-    Route::get('/start-application', 'applicationStart')->name('applicant_application_Start');
+    //  Route::post('/start-application', 'saveApplicant')->name('applicant_save_application_start');
+    // Route::get('/start-application', 'applicationStart')->name('applicant_application_Start');
     Route::post('/bio-data', 'saveBioData')->name('save_applicant_bio_data');
+    Route::post('/applicant-lga', 'sendApplicantState')->name('send_applicant_lga');
 
 
     //DEGREE ROUTES
@@ -63,3 +66,20 @@ Route::controller(applicantController::class)->group(function(){
     Route::get('/nce-application', 'nceapplicationPage')->name('applicant_nce_application_page');
 
 });
+Route::controller(noAuthController::class)->group(function(){
+    // Route::get('/start-application', 'applicationStart')->name('applicant_application_Start');
+    Route::get('/start-application', 'index')->name('applicant_application_Start');
+    Route::post('/start-application', 'saveApplicant')->name('applicant_save_application_start');
+    Route::get('/start-application/success', 'showSuccessOnStart')->name('applicant_application_Start_success');
+
+    
+
+
+
+    
+    
+});
+
+
+//Payment Links
+Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'redirectToGateway'])->name('pay');

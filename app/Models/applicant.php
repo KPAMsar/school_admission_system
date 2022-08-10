@@ -9,15 +9,21 @@ class applicant extends Model
 {
     use HasFactory;
     protected $table="applicant";
-    protected $fillable =[
-        'programme',
-        'mode_of_entry',
-        'first_name',
-        'last_name',
-        'other_names',
-        'phone',
-        'application_number',
-        'status',
-        'session',
-    ];
+    protected $guarded = [];
+
+    public function getBioData(){
+        return $this->belongsTo(ApplicantBioData::class, 'application_number', 'application_number');
+    }
+
+    public function getApplication(){
+        return $this->belongsTo(ApplicationDetail::class, 'application_number', 'application_number');
+    }
+
+    public function studyTime(){
+        return $this->belongsTo(StudyTime::class, 'study_time');
+    }
+
+    public function getPayment(){
+        return $this->belongsTo(ApplicationPayment::class, 'application_number', 'application_number');
+    }
 }

@@ -102,44 +102,44 @@ class applicantController extends Controller
         return view('applicants.nce.application');
 
     }
-    public function applicationStart(){
-        return view('applicants.application_start');
-    }
+    // public function applicationStart(){
+    //     return view('applicants.application_start');
+    // }
 
-    public function saveApplicant(Request $request){
-        //  $request->validate([
-        //      'mode_of_entry'=>'required',
-        //      'session'=>'required',
-        //      'first_name'=>'required',
-        //      'last_name'=>'required',
-        //      'other_names'=>'required',
-        //      'phone'=>'required',
-        //  ]);
-            $applicant = applicant::create([
-            'programme'=>'DEGREE',
-            'mode_of_entry'=>$request['mode_of_entry'],
-            'session'=>$request['session'],
-            'first_name'=>$request['first_name'],
-            'last_name'=>$request[ 'last_name'],
-            'other_names'=>$request['other_names'],
-            'phone'=>$request['phone_number'],
+    // public function saveApplicant(Request $request){
+    //     //  $request->validate([
+    //     //      'mode_of_entry'=>'required',
+    //     //      'session'=>'required',
+    //     //      'first_name'=>'required',
+    //     //      'last_name'=>'required',
+    //     //      'other_names'=>'required',
+    //     //      'phone'=>'required',
+    //     //  ]);
+    //         $applicant = applicant::create([
+    //         'programme'=>'DEGREE',
+    //         'mode_of_entry'=>$request['mode_of_entry'],
+    //         'session'=>$request['session'],
+    //         'first_name'=>$request['first_name'],
+    //         'last_name'=>$request[ 'last_name'],
+    //         'other_names'=>$request['other_names'],
+    //         'phone'=>$request['phone_number'],
             
        
 
-        ]);
+    //     ]);
 
-        //create the application number
-        $code = $applicant->id < 1000 ? str_repeat("0", (4 - strlen("$applicant->id"))) . $applicant->id : $applicant->id;
-        $application_no = getenv('SCHOOL_SHORT_CODE') . '-' . $code;
+    //     //create the application number
+    //     $code = $applicant->id < 1000 ? str_repeat("0", (4 - strlen("$applicant->id"))) . $applicant->id : $applicant->id;
+    //     $application_no = getenv('SCHOOL_SHORT_CODE') . '-' . $code;
 
-        $applicant->update([
-            'application_number' => $application_no
-        ]);
+    //     $applicant->update([
+    //         'application_number' => $application_no
+    //     ]);
         
-        Session::put('application_number',$application_no);
+    //     Session::put('application_number',$application_no);
 
 
-        return redirect()->route('applicant_bio_data')->with('success','Operation Succesful.. ');
+    //     return redirect()->route('applicant_bio_data')->with('success','Operation Succesful.. ');
 
-    }
+    // }
 }
