@@ -248,7 +248,7 @@
     <script src="{{ asset('asset/sdist/js/adminlte.min.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('assets/dist/js/demo.js')}}"></script>
-</body>
+
 <!-- ./wrapper -->
 <!-- jQuery -->
 <script src="{{ url('assets/plugins/jquery/jquery.min.js')}}"></script>
@@ -285,7 +285,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('assets/js/pages/dashboard.js')}}"></script>
 
-@yield('script')
+
 
 
 </body>
