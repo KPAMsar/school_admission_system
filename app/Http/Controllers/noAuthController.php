@@ -49,12 +49,15 @@ class noAuthController extends Controller
         ]);
 
         $code = $applicant->id < 1000 ? str_repeat("0", (4 - strlen("$applicant->id"))) . $applicant->id : $applicant->id;
-        $application_no = getenv('SCHOOL_SHORT_CODE') . '-' . date('y') . '-' . $code;
+        $application_number = getenv('SCHOOL_SHORT_CODE') . '-' . date('y') . '-' . $code;
 
         //update table with application number
         $applicant->update([
-            'application_number' => $application_no
+            'application_number' => $application_number
         ]);
+
+        Session::put('application_number', $application_number);
+        
 
     });
 
@@ -69,8 +72,13 @@ class noAuthController extends Controller
     }
 
     public function showSuccessOnStart(){
-        $applicant_no = Session::get('application_number');
-        $applicant = applicant::where('application_number',$applicant_no)->first();
+        $code = Session::get('application_number');
+
+        $applicant = applicant::where('application_number', $code)->first();
+
+
+        $applicant_number = Session::get('application_number');
+        $applicant = applicant::where('application_number',$applicant_number)->first();
         return view('application_success',['applicant'=>$applicant]);
     }
 }

@@ -188,7 +188,7 @@
           <a href="{{route('applicant_bio_data')}}" class="nav-link">
             <i class="nav-icon fa fa-users"></i>
             <p>
-              Application
+              Bio-Data
             </p>
           </a>
         </li>

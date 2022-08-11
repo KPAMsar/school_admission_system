@@ -110,7 +110,7 @@
                     <!-- Right navbar links -->
                     <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                         <li class="nav-item">
-                            <a href="" class="nav-link">Login</a>
+                            <a href="{{route('login')}}" class="nav-link">Login</a>
                         </li>
                         <li class="nav-item">
                             <!-- <a href="" class="nav-link">Register</a> -->

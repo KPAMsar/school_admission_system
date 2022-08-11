@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userAuth;
 use App\Http\Controllers\noAuthController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,7 @@ Route::controller(applicantController::class)->group(function(){
     //DEGREE ROUTES
     Route::get('/degree-application', 'applicationPage')->name('applicant_application_page');
 
+
     //NCE
     Route::get('/nce-application', 'nceapplicationPage')->name('applicant_nce_application_page');
 
@@ -72,12 +74,11 @@ Route::controller(noAuthController::class)->group(function(){
     Route::post('/start-application', 'saveApplicant')->name('applicant_save_application_start');
     Route::get('/start-application/success', 'showSuccessOnStart')->name('applicant_application_Start_success');
 
-    
 
+});
 
-
-    
-    
+Route::controller(PaymentController::class)->group(function(){
+Route::get('/payment','loadPaymentPage')->name('payment_page');
 });
 
 

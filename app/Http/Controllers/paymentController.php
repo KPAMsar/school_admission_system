@@ -12,6 +12,8 @@ use App\Models\Payment;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Unicodeveloper\Paystack\Facades\Paystack;
+use App\Models\biodata;
+use App\Models\progamount;
 
 class PaymentController extends Controller
 {
@@ -86,4 +88,59 @@ class PaymentController extends Controller
         }
         
     }
+
+
+    public function loadPaymentPage(){
+        $applicant = Session::get('application_number');
+        return view('applicants.payment',['applicant'=>$applicant]);
+    }
+
+    private function verifyLogin()
+    {
+        if (Session::get('application_number') != null && Session::get('logged_in') != null) {
+            //verify that user is applying for nce
+            $applicant = applicant::where('application_number', Session::get('application_number'))->first();
+
+            if ($applicant != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function loadPayment()
+    {
+        //ensure use is logged in
+        if ($this->verifyLogin()) {
+            //ensure user has filled bio-data form
+            $applicant_bio_data = bioData::where('application_number', Session::get('application_number'))->first();
+
+            if ($applicant_bio_data != null) {
+                //check if user has already paid
+                $payment = ApplicationPayment::where('application_number', Session::get('application_number'))->first();
+                if ($payment == null) {
+                    $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
+
+                    //get the amount to be paid
+                    $programme_amount = progamount::where('programme', $applicant->programme)->first();
+                    $applicant->amount = $programme_amount->amount;
+
+                    return view('payment', ['pageName' => 'Payment', 'applicant' => $applicant, 'bio-data' => $applicant_bio_data]);
+                } else {
+                    //user has already made payment
+                    return redirect('/admissions/nce/dashboard/application');
+                }
+            } else {
+                //redirect to bio-data form
+                return redirect('applicant_bio_data');
+            }
+        } else {
+            //redirect to the login page
+            return redirect('/login');
+        }
+    }
+    
 }

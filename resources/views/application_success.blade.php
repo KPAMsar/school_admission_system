@@ -26,7 +26,7 @@
 
 
                                         <p>Hello ,</p>
-                                        {{$applicant}}
+                                        {{$applicant->first_name .' '.$applicant->last_name.' '.$applicant->other_names}} 
                                         <p>You have successfully created an account with us, to continue and complete your application, please click on the button below.</p>
 
                                         <div class="row clearfix">
