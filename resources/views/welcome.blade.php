@@ -41,7 +41,7 @@
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-dark">
             <div class="container">
                 <a href="../../" class="navbar-brand">
-                    <img src="{{ asset('assets/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <img href="{{ asset('assets/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                     <span class="brand-text font-weight-light">AdminLTE 3</span>
                 </a>
 
@@ -241,49 +241,49 @@
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
-    <script src="{{ asset('assets/plugins/jquery/jquery.min.js')}}"></script>
+    <script href="{{ asset('assets/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script href="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('asset/sdist/js/adminlte.min.js')}}"></script>
+    <script href="{{ asset('asset/sdist/js/adminlte.min.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{asset('assets/dist/js/demo.js')}}"></script>
+    <script href="{{asset('assets/dist/js/demo.js')}}"></script>
 </body>
 <!-- ./wrapper -->
 <!-- jQuery -->
-<script src="{{ url('assets/plugins/jquery/jquery.min.js')}}"></script>
+<script href="{{ url('assets/plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="{{ url('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<script href="{{ url('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="{{ url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script href="{{ url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- ChartJS -->
-<script src="{{ url('assets/plugins/chart.js/Chart.min.js')}}"></script>
+<script href="{{ url('assets/plugins/chart.js/Chart.min.js')}}"></script>
 <!-- Sparkline -->
-<script src="{{ url('assets/plugins/sparklines/sparkline.js')}}"></script>
+<script href="{{ url('assets/plugins/sparklines/sparkline.js')}}"></script>
 <!-- JQVMap -->
-<script src="{{ url('assets/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{ url('assets/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<script href="{{ url('assets/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+<script href="{{ url('assets/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
 <!-- jQuery Knob Chart -->
-<script src="{{ url('assets/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+<script href="{{ url('assets/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
-<script src="{{ url('assets/plugins/moment/moment.min.js')}}"></script>
-<script src="{{ url('assets/plugins/daterangepicker/daterangepicker.js')}}"></script>
+<script href="{{ url('assets/plugins/moment/moment.min.js')}}"></script>
+<script href="{{ url('assets/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ url('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<script href="{{ url('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 <!-- Summernote -->
-<script src="{{ url('assets/plugins/summernote/summernote-bs4.min.js')}}"></script>
+<script href="{{ url('assets/plugins/summernote/summernote-bs4.min.js')}}"></script>
 <!-- overlayScrollbars -->
-<script src="{{ url('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<script href="{{ url('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{ url('assets/js/adminlte.js')}}"></script>
+<script href="{{ url('assets/js/adminlte.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{ url('assets/js/demo.js')}}"></script>
+<script href="{{ url('assets/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ url('assets/js/pages/dashboard.js')}}"></script>
+<script href="{{ url('assets/js/pages/dashboard.js')}}"></script>
 
 @yield('script')
 
