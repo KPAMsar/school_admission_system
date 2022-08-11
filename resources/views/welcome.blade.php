@@ -1,4 +1,4 @@
-@extends('includes.navbar')
+@extends('partials.navbar')
         <!-- /.content -->
 
         @section('content')
