@@ -42,10 +42,10 @@ class noAuthController extends Controller
             'status' => 'School'
         ]);
 
-        User::Create([
-            'name'=> $request['first_name']. $request['last_name']. $request['other_names'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
+       $user = User::Create([
+                'name'=> $request['first_name']. $request['last_name']. $request['other_names'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
         ]);
 
         $code = $applicant->id < 1000 ? str_repeat("0", (4 - strlen("$applicant->id"))) . $applicant->id : $applicant->id;
@@ -55,6 +55,12 @@ class noAuthController extends Controller
         $applicant->update([
             'application_number' => $application_number
         ]);
+
+
+        $user->update([
+            'application_number' => $application_number
+        ]);
+
 
         Session::put('application_number', $application_number);
         
@@ -79,6 +85,6 @@ class noAuthController extends Controller
 
         $applicant_number = Session::get('application_number');
         $applicant = applicant::where('application_number',$applicant_number)->first();
-        return view('application_success',['applicant'=>$applicant]);
+        return view('application_success', ['applicant'=>$applicant]);
     }
 }

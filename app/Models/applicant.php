@@ -10,10 +10,10 @@ class applicant extends Model
     use HasFactory;
     protected $table="applicant";
     protected $guarded = [];
-    protected $primarykey='application_number';
+
 
     public function getBioData(){
-        return $this->hasOne(biodata::class, 'application_number', ); 
+        return $this->belongsTo(biodata::class, 'application_number', 'application_number'); 
     }
 
     public function getApplication(){

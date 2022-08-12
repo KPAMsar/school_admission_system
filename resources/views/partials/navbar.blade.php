@@ -75,29 +75,7 @@
 
                                 <li class="dropdown-divider"></li>
 
-                                <!-- Level two dropdown-->
-                                <li class="dropdown-submenu dropdown-hover">
-                                    <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
-                                    <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                                        <li>
-                                            <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
-                                        </li>
-
-                                        <!-- Level three dropdown-->
-                                        <li class="dropdown-submenu">
-                                            <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
-                                            <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
-                                                <li><a href="#" class="dropdown-item">3rd level</a></li>
-                                                <li><a href="#" class="dropdown-item">3rd level</a></li>
-                                            </ul>
-                                        </li>
-                                        <!-- End Level three -->
-
-                                        <li><a href="#" class="dropdown-item">level 2</a></li>
-                                        <li><a href="#" class="dropdown-item">level 2</a></li>
-                                    </ul>
-                                </li>
-                                <!-- End Level two -->
+                               
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -126,95 +104,7 @@
         <!-- /.content -->
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Content Wrapper. Contains page content -->
-<div class=" ">
-    <!-- Content Header (Page header) -->
-    <section class="content-header" style="padding-top:5rem;">
-        <div class="container card">
-            <div class="header">
-                <h1 style="text-align:center;"><strong>To start your Application process</strong> With Application<br>
-                    <!-- <small>To stand a chance of gaining admission into our school, start the application process by filling the form below.</small> -->
-
-                </h1>
-                <br>
-
-            </div>
-            <div class="">
-                <div class="container">
-                    <div class="container">
-                        <div class="row clearfix">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="">
-                                    <div style="text-align:center;">
-                                        @csrf
-
-                                        <div class="body">
-                                            <div class="row">
-                                                1.Proceed to Admissions section and select your application program
-                                            </div><br>
-                                            <div class="row">
-                                                1.Proceed to Admissions section and select your application program
-                                            </div><br>
-                                            <div class="row">
-                                                1.Proceed to Admissions section and select your application program
-                                            </div><br>
-                                            <div class="row">
-                                                1.Proceed to Admissions section and select your application program
-                                            </div><br>
-                                            <div class="row">
-                                                1.Proceed to Admissions section and select your application program
-                                            </div><br>
-                                            <div class="row">
-                                                1.Proceed to Admissions section and select your application program
-                                            </div><br>
-                                            <div class="row">
-                                                1.Proceed to Admissions section and select your application program
-                                            </div><br>
-                                            <div class="row">
-                                                1.Proceed to Admissions section and select your application program
-                                            </div><br>
-                                            <div class="row">
-                                                1.Proceed to Admissions section and select your application program
-                                            </div><br>
-                                            
-
-                                           
-                                            
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-    </section>
-
-
-</div>
-<!-- /.content-wrapper -->
-
-
-
-
-
-
-
-
+@yield('content')
 
 
     
@@ -248,44 +138,6 @@
     <script src="{{ asset('asset/sdist/js/adminlte.min.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('assets/dist/js/demo.js')}}"></script>
-</body>
-<!-- ./wrapper -->
-<!-- jQuery -->
-<script src="{{ url('assets/plugins/jquery/jquery.min.js')}}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ url('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-    $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="{{ url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- ChartJS -->
-<script src="{{ url('assets/plugins/chart.js/Chart.min.js')}}"></script>
-<!-- Sparkline -->
-<script src="{{ url('assets/plugins/sparklines/sparkline.js')}}"></script>
-<!-- JQVMap -->
-<script src="{{ url('assets/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{ url('assets/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ url('assets/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
-<!-- daterangepicker -->
-<script src="{{ url('assets/plugins/moment/moment.min.js')}}"></script>
-<script src="{{ url('assets/plugins/daterangepicker/daterangepicker.js')}}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ url('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
-<!-- Summernote -->
-<script src="{{ url('assets/plugins/summernote/summernote-bs4.min.js')}}"></script>
-<!-- overlayScrollbars -->
-<script src="{{ url('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{ url('assets/js/adminlte.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ url('assets/js/demo.js')}}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ url('assets/js/pages/dashboard.js')}}"></script>
-
-@yield('script')
 
 
 </body>

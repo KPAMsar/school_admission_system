@@ -1,4 +1,4 @@
-@extends('includes.navbar')
+@extends('partials.navbar')
 
 
 @section('content')
@@ -31,7 +31,7 @@
 
                                         <div class="row clearfix">
                                             <div class="col-sm-12">
-                                                <a class="btn btn-raised btn-round btn-primary" href="{{url('/login')}}">Proceed to Login</a>
+                                                <a class="btn btn-raised btn-round btn-primary" href="{{route('login')}}">Proceed to Login</a>
 
                                             </div>
                                         </div>

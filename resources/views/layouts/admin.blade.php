@@ -190,7 +190,7 @@
         </div>
         @if(Auth::user()->Role == 'SuperAdmin')
             <div class="info">
-            <small><a href="" class="d-block" style="text-align:">Super Admin</a></small>
+            <small><a href="" class="d-block" >Super Admin</a></small>
           </div>
             @endif
 

@@ -57,9 +57,10 @@ Route::controller(applicantController::class)->group(function(){
     //  Route::post('/start-application', 'saveApplicant')->name('applicant_save_application_start');
     // Route::get('/start-application', 'applicationStart')->name('applicant_application_Start');
     Route::post('/bio-data', 'saveBioData')->name('save_applicant_bio_data');
-    Route::post('/applicant-lga', 'sendApplicantState')->name('send_applicant_lga');
+    Route::post('/getlga', 'sendApplicantState')->name('send_applicant_lga');
+    Route::get('/admission-status', 'showAdmissionStatus')->name('applicant_admission_status');
 
-
+    
     //DEGREE ROUTES
     Route::get('/degree-application', 'applicationPage')->name('applicant_application_page');
 
@@ -68,6 +69,9 @@ Route::controller(applicantController::class)->group(function(){
     Route::get('/nce-application', 'nceapplicationPage')->name('applicant_nce_application_page');
 
 });
+
+
+
 Route::controller(noAuthController::class)->group(function(){
     // Route::get('/start-application', 'applicationStart')->name('applicant_application_Start');
     Route::get('/start-application', 'index')->name('applicant_application_Start');
@@ -78,7 +82,7 @@ Route::controller(noAuthController::class)->group(function(){
 });
 
 Route::controller(PaymentController::class)->group(function(){
-Route::get('/payment','loadPaymentPage')->name('payment_page');
+Route::get('/admissions/dashboard/payment','loadPaymentPage')->name('payment_page');
 });
 
 

@@ -192,16 +192,9 @@
             </p>
           </a>
         </li>
+        
         <li class="nav-item">
-          <a href="" class="nav-link">
-            <i class="nav-icon fa fa-users"></i>
-            <p>
-             Continue Application 
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="" class="nav-link">
+          <a href="{{route('applicant_admission_status')}}" class="nav-link">
             <i class="nav-icon fa fa-users"></i>
             <p>
               Admission Status
@@ -209,7 +202,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="" class="nav-link">
+          <a href="{{route('payment_page')}}" class="nav-link">
             <i class="nav-icon fas fa-copy"></i>
             <p>
               <i class="fa fa-credit-card-alt" aria-hidden="true"></i>

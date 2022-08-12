@@ -8,6 +8,9 @@ use Jajo\NG;
 use App\Models\applicant;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ApplicationPayment;
+use App\Models\ProgramAmount;
 
 
 class applicantController extends Controller
@@ -39,17 +42,11 @@ class applicantController extends Controller
 
     public function bioData()
     {
-
-        // $applicant = applicant::where('application_number', Session::get('application_number'))->first();
-        //  return view('applicants.bio_data',['states'=>$name, 'applicant'=>$applicant]);
-
-
-
         //first verify if use is logged in
         if (!$this->verifyLogin()) {
-            $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
-
+        $applicant = biodata::where('application_number', Auth::user()->application_number)->get('application_number')->first();
             $ng = new NG();
+
             $states = $ng->states;
             return view('applicants.bio_data', ['pageName' => 'Bio-Data', 'applicant' => $applicant, 'states' => $states]);
         } else {
@@ -62,67 +59,137 @@ class applicantController extends Controller
     {
         $sendData = $request->all();
         $ng = new NG();
-        $lga = $ng->getLGA($sendData['state']);
-        return response()->json(array($lga), 200);
+        
+        $lgas = $ng->getLGA($sendData['state']);
+        
+        return response()->json(array('lga'=>json_encode($lgas)), 200);
     }
 
     public function saveBioData(Request $request)
     {
         $request->validate([
-            'address_1' => 'required',
+            'address_1' => 'required|max:255',
             'city_1' => 'required',
-            ' address_2' => 'required',
-            'city_2' => 'required',
             'country_of_residence' => 'required',
-            'state_of_residence' => 'required',
-            'lga_of_residence' => 'required',
             'country_of_origin' => 'required',
-            'state_of_origin' => 'required',
-            'lga_of_origin' => 'required',
-            'dob_day ' => 'required',
-            'dob_month ' => 'required',
-            'dob_year ' => 'required',
-            'nok_first_name' => 'required',
-            'nok_last_name ' => 'required',
-            'nok_address' => 'required',
-            'nok_city' => 'required',
-            'nok_country_of_residence ' => 'required',
-            'nok_state_of_residence' => 'required',
-            'nok_lga_of_residence' => 'required',
-            'nok_phone_number' => 'required',
-            'nok_email' => 'required |email',
-            'application_number' => 'required',
+            'dob_day' => 'required',
+            'dob_month' => 'required',
+            'dob_year' => 'required'
         ]);
 
-        biodata::create([
-            'application_number' => Session::get('application_number'),
-            'address_1' => $request['address_1'],
-            'city_1 ' => $request['city_1'],
-            ' address_2' => $request['address_2'],
-            'city_2' => $request['city_2'],
-            'country_of_residence' => $request['country_of_residence'],
-            'country_of_residence' => $request['country_of_residence'],
-            'lga_of_residence' => $request['lga_of_residence'],
-            'country_of_origin' => $request['country_of_origin'],
-            'state_of_origin' => $request['state_of_origin'],
-            'lga_of_origin' => $request['lga_of_origin'],
-            'dob_day' => $request['dob_day'],
-            'dob_month' => $request['dob_month'],
-            'dob_year' => $request['dob_year'],
-            'nok_first_name' => $request['nok_first_name'],
-            'nok_last_name' => $request['nok_last_name'],
-            'nok_address' => $request['nok_address'],
-            'nok_city' => $request['nok_city'],
-            'nok_country_of_residence' => $request['nok_country_of_residence'],
-            'nok_state_of_residence' => $request['nok_state_of_residence'],
-            'nok_lga_of_residence' => $request['nok_lga_of_residence'],
-            'nok_phone_number' => $request['nok_phone_number'],
-            'nok_email' => $request['nok_email'],
-        ]);
+        $application_no = Auth::user()->application_number;
+        if (empty($application_no)) return redirect('/admissions/login');
 
-        return redirect()->route('')->with('success', 'Operation Succesful..');
+        $dob = $request['dob_year'] . '-' . $request['dob_month'] . '-' . $request['dob_day'];
+
+        // $applicant = applicant::where('application_number', $application_no)->first();
+
+        //check if doesn't record exist
+        $applicant = biodata::where('application_number', Auth::user()->application_number)->get('application_number')->first();
+
+        if ($applicant == null) {
+            biodata::create([
+                'application_number' => $application_no,
+                'address_1' => $request['address_1'],
+                'address_2' => $request['address_2'],
+                'city_1' => $request['city_1'],
+                'city_2' => $request['city_2'],
+                'country_residence' => $request['country_of_residence'],
+                'state_residence' => $request['state_of_residence'],
+                'lga_residence' => $request['lga_of_residence'],
+                'country_origin' => $request['country_of_origin'],
+                'state_origin' => $request['state_of_origin'],
+                'lga_origin' => $request['lga_of_origin'],
+                'dob' => $dob,
+                'nok_first_name' => $request['nok_first_name'],
+                'nok_last_name' => $request['nok_last_name'],
+                'nok_phone' => $request['nok_phone_number'],
+                'nok_email' => $request['nok_email'],
+                'nok_address' => $request['nok_address'],
+                'nok_city' => $request['nok_city'],
+                'nok_country' => $request['nok_country_of_residence'],
+                'nok_state' => $request['nok_state_of_residence'],
+                'nok_lga' => $request['nok_lga_of_residence']
+            ]);
+
+
+            //update the applicant status
+        $applicant = applicant::where('application_number', Auth::user()->application_number)->get('application_number')->first();
+        // $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
+            $applicant->update([
+                'status' => 'Payment'
+            ]);
+
+            //redirect to the payment page
+            return redirect('/admissions/dashboard/payment');
+
+        } else {
+            //update the bio data details
+            $bioData = biodata::where('application_number', $application_no)->first();
+
+            $bioData->update([
+                'address_1' => $request['address_1'],
+                'address_2' => $request['address_2'],
+                'city_1' => $request['city_1'],
+                'city_2' => $request['city_2'],
+                'country_residence' => $request['country_of_residence'],
+                'state_residence' => $request['state_of_residence'],
+                'lga_residence' => $request['lga_of_residence'],
+                'country_origin' => $request['country_of_origin'],
+                'state_origin' => $request['state_of_origin'],
+                'lga_origin' => $request['lga_of_origin'],
+                'dob' => $dob,
+                'nok_first_name' => $request['nok_first_name'],
+                'nok_last_name' => $request['nok_last_name'],
+                'nok_phone' => $request['nok_phone_number'],
+                'nok_email' => $request['nok_email'],
+                'nok_address' => $request['nok_address'],
+                'nok_city' => $request['nok_city'],
+                'nok_country' => $request['nok_country_of_residence'],
+                'nok_state' => $request['nok_state_of_residence'],
+                'nok_lga' => $request['nok_lga_of_residence']
+            ]);
+
+            return redirect()->back()->with('success', 'You have successfully updated your details.');
+
+        }
     }
 
+
+    public function loadPayment()
+    {
+        //ensure use is logged in
+        if ($this->verifyLogin()) {
+            //ensure user has filled bio-data form
+            $applicant_bio_data = biodata::where('application_number', Auth::user()->application_number)->first();
+
+            if ($applicant_bio_data != null) {
+                //check if user has already paid
+                $payment = ApplicationPayment::where('application_number', Auth::user()->application_number)->first();
+                if ($payment == null) {
+                    $applicant = applicant::where('application_number', Auth::user()->application_number)->first();
+
+                    //get the amount to be paid
+                    $programme_amount = ProgramAmount::where('programme', $applicant->programme)->first();
+                    $applicant->amount = $programme_amount->amount;
+
+                    return view('payment_page', ['pageName' => 'Payment', 'applicant' => $applicant, 'bio-data' => $applicant_bio_data]);
+                } else {
+                    //user has already made payment
+                    return redirect('/admissions/dashboard/application');
+                }
+            } else {
+                //redirect to bio-data form
+                return redirect()->route('applicant_application_page');
+            }
+        } else {
+            //redirect to the login page
+            return redirect('/login');
+        }
+    }
+
+
+ 
     public function applicationPage()
     {
         return view('applicants.Degree.application');
@@ -172,6 +239,10 @@ class applicantController extends Controller
     //     return redirect()->route('applicant_bio_data')->with('success','Operation Succesful.. ');
 
     // }
+
+    public function showAdmissionStatus(){
+        return view('applicants.admission_status');
+    }
 
 
 }
