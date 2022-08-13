@@ -30,7 +30,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{$total_applicant}}</h3>
 
                 <p>Total Applicants</p>
               </div>

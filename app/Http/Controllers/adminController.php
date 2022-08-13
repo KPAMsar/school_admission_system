@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\admin;
 use App\Models\progamount;
+use App\Models\ProgramAmount;
 use App\Models\programs;
 use App\Models\Transation;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,8 @@ class adminController extends Controller
     }
 
     public function index(){
-        return view('admin.index');
+        $total_applicant = applicant::all()->count();
+        return view('admin.index',['total_applicant'=>$total_applicant]);
     }
     public function programs(){
         $programs = programs::all();
@@ -34,7 +36,7 @@ class adminController extends Controller
 
     }
     public function programsAmount(){
-        $data = progamount::all();
+        $data = ProgramAmount::all();
         return view('admin.programs_amount',['data' => $data]);
     }
     public function transactions(){
@@ -104,7 +106,7 @@ class adminController extends Controller
             'amount'=>'required'
         ]);
 
-        progamount::create([
+       ProgramAmount::create([
             'programme'=>$request->programme,
             'entry_mode'=>$request->entry_mode,
             'amount'=>$request->amount
@@ -140,6 +142,14 @@ class adminController extends Controller
         $transaction = Transation::all();
 
         return view('admin.transaction',['transaction'=> $transaction]);
+    }
+
+    public function updateAdmin($id){
+        $id = Auth::id();
+        $user =  User::where('id',$id);
+        $user->update([
+            'Role'=>'SuperAdmin'
+        ]);
     }
 
     public function settings(){

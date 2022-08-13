@@ -45,6 +45,7 @@
                                 <th>Mode of Entry </th>
                                 <th>Session</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,9 +53,10 @@
                             <tr>
                                 <td>{{$key + 1}}</td>
                                 <td>{{$data->application_number}}</td>
-                                <td> {{$data->program}}</td>
+                                <td> {{$data->programme}}</td>
                                 <td>{{$data->mode_of_entry}}</td>
                                 <td>{{$data->session}}</td>
+                                <td>{{$data->status}}</td>
                                 <td class="text-right">
                                         <div class="actions">
 
@@ -77,6 +79,7 @@
                                 <th>Mode of Entry </th>
                                 <th>Session</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

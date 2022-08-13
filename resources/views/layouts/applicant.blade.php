@@ -230,6 +230,20 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <form action="{{route('update_admin',Auth::user()->id)}}" method="post">
+              @csrf 
+              @method('PUT')
+              <input type="submit" class="ben btn-class">
+            </form>
+            <p>
+              
+
+            </p>
+          </a>
+        </li>
 
         <li class="nav-header"></li>
 

@@ -22,9 +22,9 @@ class applicantController extends Controller
 
     private function verifyLogin()
     {
-        if (Session::get('application_number') != null && Session::get('logged_in') != null) {
+        if (Auth::user()->application_number != null && Session::get('logged_in') != null) {
             //verify that user is applying for degree
-            $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
+            $applicant = applicant::where('application_number', Auth::user()->application_number)->first();
 
             if ($applicant != null) {
                 return true;

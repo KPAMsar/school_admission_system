@@ -87,25 +87,26 @@ $split = [
                                                                 </div>
                                                                 <table class="table table-hover table-stripped">
                                                                     <tbody>
+                                                                        {{$applicant}}
                                                                         <tr>
                                                                             <td>Full Name</td>
-                                                                            <td>{{$applicant->application_number }}</td>
+                                                                            <td></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Phone</td>
-                                                                            <td>{</td>
+                                                                            <td></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Programme</td>
-                                                                            <td>{}</td>
+                                                                            <td>{</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Mode of Entry</td>
-                                                                            <td>}</td>
+                                                                            <td>{}</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Amount</td>
-                                                                            <td></td>
+                                                                            <td>NGN}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>

@@ -46,6 +46,8 @@ Route::controller(adminController::class)->group(function(){
     Route::post('/admin/access-settings', 'createAdminUser')->name('admin_save_access_settings_');
     Route::get('/admin/transactions', 'transaction')->name('admin_transaction_');
     Route::delete('/admin/delete-Admin-user/{id}', 'deleteAdminUser')->name('admin_delete_admin_');
+    Route::put('/admin-update/{id}', 'updateAdmin')->name('update_admin');
+
 
 
 });
