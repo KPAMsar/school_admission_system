@@ -19,7 +19,7 @@
 
     </div>
     <div class="card-body">
-        <p class="login-box-msg">Account Login<br>Please log in to continue</p>
+        <p class="login-box-msg">Welcome back!<br>Please log in to continue</p>
 
         <form action="{{ route('login') }}" method="post">
             @csrf

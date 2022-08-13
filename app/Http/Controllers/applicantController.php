@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ApplicationPayment;
 use App\Models\ProgramAmount;
+use Illuminate\Support\Facades\Hash;
 
 
 class applicantController extends Controller
@@ -22,9 +23,9 @@ class applicantController extends Controller
 
     private function verifyLogin()
     {
-        if (Auth::user()->application_number != null && Session::get('logged_in') != null) {
+        if (Session::get('application_number') != null && Session::get('logged_in') != null) {
             //verify that user is applying for degree
-            $applicant = applicant::where('application_number', Auth::user()->application_number)->first();
+            $applicant = Applicant::where('application_number', Session::get('application_number'))->where('programme', 'DEGREE')->first();
 
             if ($applicant != null) {
                 return true;
@@ -35,16 +36,56 @@ class applicantController extends Controller
             return false;
         }
     }
+
     public function index()
     {
         return view('applicants.index');
     }
 
+
+    
+    public function applicationLogin($applicaton_number = '')
+    {
+        return view('applicants.application_login', ['application_number' => !empty($applicaton_number) ? $applicaton_number : (Session::get('application_number') != null ? Session::get('application_number') : '')]);
+    }
+
+    public function processApplicationLogin(Request $request)
+    {
+        $request->validate([
+            'application_number' => 'required',
+            'password' => 'required'
+        ]);
+
+        //load the applicants details
+        $applicant = applicant::where('application_number', $request['application_number'])->first();
+
+        if ($applicant != null) {
+            //validate the password
+            if (Hash::check($request['password'], $applicant->password)) {
+                Session::put('application_number', $request['application_number']);
+                Session::put('logged_in', true); //subsequently use a token instead
+
+                //load the applicant's dashboard based on type of application
+                if ($applicant->programme == 'DEGREE') {
+                    return redirect()->route('applicant_dashboard_page')->with('success','Welcome back');
+                } else {
+                    return redirect()->route('applicant_nce_application_page');
+                }
+            } else {
+                return redirect()->back()->with('error', 'Wrong login details');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Wrong login details');
+        }
+    }
+
+
+
     public function bioData()
     {
         //first verify if use is logged in
         if (!$this->verifyLogin()) {
-        $applicant = biodata::where('application_number', Auth::user()->application_number)->get('application_number')->first();
+        $applicant = biodata::where('application_number', Session::get('application_number'))->first();
             $ng = new NG();
 
             $states = $ng->states;
@@ -77,7 +118,7 @@ class applicantController extends Controller
             'dob_year' => 'required'
         ]);
 
-        $application_no = Auth::user()->application_number;
+        $application_no = Session::get('application_number');
         if (empty($application_no)) return redirect('/admissions/login');
 
         $dob = $request['dob_year'] . '-' . $request['dob_month'] . '-' . $request['dob_day'];
@@ -85,7 +126,7 @@ class applicantController extends Controller
         // $applicant = applicant::where('application_number', $application_no)->first();
 
         //check if doesn't record exist
-        $applicant = biodata::where('application_number', Auth::user()->application_number)->get('application_number')->first();
+        $applicant = biodata::where('application_number', Session::get('application_number'))->first();
 
         if ($applicant == null) {
             biodata::create([
@@ -114,7 +155,7 @@ class applicantController extends Controller
 
 
             //update the applicant status
-        $applicant = applicant::where('application_number', Auth::user()->application_number)->get('application_number')->first();
+        $applicant = applicant::where('application_number', Session::get('application_number'))->first();
         // $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
             $applicant->update([
                 'status' => 'Payment'
@@ -161,43 +202,44 @@ class applicantController extends Controller
         //ensure use is logged in
         if ($this->verifyLogin()) {
             //ensure user has filled bio-data form
-            $applicant_bio_data = biodata::where('application_number', Auth::user()->application_number)->first();
+            $biodata = biodata::where('application_number', Session::get('application_number'))->first();
 
-            if ($applicant_bio_data != null) {
+            if ( $biodata != null) {
                 //check if user has already paid
-                $payment = ApplicationPayment::where('application_number', Auth::user()->application_number)->first();
+                $payment = ApplicationPayment::where('application_number', Session::get('application_number'))->first();
                 if ($payment == null) {
-                    $applicant = applicant::where('application_number', Auth::user()->application_number)->first();
+                    $applicant = applicant::where('application_number', Session::get('application_number'))->first();
 
                     //get the amount to be paid
                     $programme_amount = ProgramAmount::where('programme', $applicant->programme)->first();
                     $applicant->amount = $programme_amount->amount;
 
-                    return view('payment_page', ['pageName' => 'Payment', 'applicant' => $applicant, 'bio-data' => $applicant_bio_data]);
+                    return view('applicants.payment', ['pageName' => 'Payment', 'applicant' => $applicant, 'bio-data' =>  $biodata]);
                 } else {
                     //user has already made payment
                     return redirect('/admissions/dashboard/application');
                 }
             } else {
                 //redirect to bio-data form
-                return redirect()->route('applicant_application_page');
+                return redirect('/admissions/dashboard/bio-data');
             }
         } else {
             //redirect to the login page
-            return redirect('/login');
+            return redirect('/admissions/login');
         }
     }
-
 
  
     public function applicationPage()
     {
-        return view('applicants.Degree.application');
+        $applicant = applicant::where('application_number', Session::get('application_number'))->first();
+        return view('applicants.Degree.dashboard',['applicant'=>$applicant]);
     }
 
     public function nceapplicationPage()
     {
-        return view('applicants.nce.application');
+        $applicant = applicant::where('application_number', Session::get('application_number'))->first();
+        return view('applicants.nce.dashboard',['applicant'=>$applicant]);
     }
     // public function applicationStart(){
     //     return view('applicants.application_start');

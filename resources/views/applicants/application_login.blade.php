@@ -19,26 +19,26 @@
 
     </div>
     <div class="card-body">
-        <p class="login-box-msg">Account Login<br>Please log in to continue</p>
+        <p class="login-box-msg">Welcome back!<br>Please log in to continue</p>
 
-        <form action="{{ route('login') }}" method="post">
+        <form action="{{ route('post_applicant_login') }}" method="post">
             @csrf
 
             <div class="input-group mb-3">
-                <input type="text" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <input type="text" id="application_number" class="form-control @error('application number') is-invalid @enderror" placeholder="Application Number" name="application_number"  value="" required autocomplete="" autofocus>
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-envelope"></span>
                     </div>
                 </div>
-                @error('email')
+                @error('application number')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
             </div>
             <div class="input-group mb-3">
-                <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" required autocomplete="current-password">
+                <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" id="password" required autocomplete="current-password">
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-lock"></span>

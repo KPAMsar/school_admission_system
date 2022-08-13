@@ -87,18 +87,18 @@ $split = [
                                                                 </div>
                                                                 <table class="table table-hover table-stripped">
                                                                     <tbody>
-                                                                        {{$applicant}}
+                                                                        
                                                                         <tr>
                                                                             <td>Full Name</td>
-                                                                            <td></td>
+                                                                            <td>{</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Phone</td>
-                                                                            <td></td>
+                                                                            <td>{{$biodata}}</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Programme</td>
-                                                                            <td>{</td>
+                                                                            <td></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Mode of Entry</td>

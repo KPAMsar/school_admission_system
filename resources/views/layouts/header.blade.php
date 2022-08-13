@@ -47,7 +47,7 @@
       <a href="" data-toggle="dropdown" class="nav-link">Admission</a>
 
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="{{route('applicant_application_page')}}" class="dropdown-item">
+          <a href="" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
               <div class="media-body">

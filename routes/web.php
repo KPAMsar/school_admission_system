@@ -26,7 +26,7 @@ use App\Http\Controllers\PaymentController;
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logOut')->name('logout');
 Route::get('/nav-select', [userAuth::class, 'index'])->name('nav-select');
 
 //ADMIN routes
@@ -62,13 +62,17 @@ Route::controller(applicantController::class)->group(function(){
     Route::post('/getlga', 'sendApplicantState')->name('send_applicant_lga');
     Route::get('/admission-status', 'showAdmissionStatus')->name('applicant_admission_status');
 
-    
+    //application login
+    Route::get('/admissions/login', [applicantController::class, 'applicationLogin'])->name('get_applicant_login');
+    Route::get('/admissions/login/{id}', [applicantController::class, 'applicationLogin'])->name('getapplicant_login');
+    Route::post('/admissions/login', [applicantController::class, 'processApplicationLogin'])->name('post_applicant_login');
+
     //DEGREE ROUTES
-    Route::get('/degree-application', 'applicationPage')->name('applicant_application_page');
+    Route::get('/admissions/dashboard', 'applicationPage')->name('applicant_dashboard_page');
 
 
     //NCE
-    Route::get('/nce-application', 'nceapplicationPage')->name('applicant_nce_application_page');
+    Route::get('/admissions/nce/dashboard', 'nceapplicationPage')->name('applicant_nce_application_page');
 
 });
 
@@ -84,7 +88,7 @@ Route::controller(noAuthController::class)->group(function(){
 });
 
 Route::controller(PaymentController::class)->group(function(){
-Route::get('/admissions/dashboard/payment','loadPaymentPage')->name('payment_page');
+Route::get('/admissions/dashboard/payment','loadPayment')->name('payment_page');
 });
 
 

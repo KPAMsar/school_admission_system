@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Unicodeveloper\Paystack\Facades\Paystack;
 use App\Models\biodata;
-use App\Models\progamount;
+use App\Models\ProgramAmount;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -64,7 +65,7 @@ class PaymentController extends Controller
             );
 
             //update the payment attempts table
-            $payment_attempt = PaymentAttempt::where('reference', $paymentDetails['data']['reference'])->first();
+            $payment_attempt = Payment::where('reference', $paymentDetails['data']['reference'])->first();
             $payment_attempt->update([
                 'status' => 'Completed'
             ]);
@@ -89,10 +90,36 @@ class PaymentController extends Controller
         
     }
 
+    public function loadPayment()
+    {
+        //ensure use is logged in
+        if ($this->verifyLogin()) {
+            //ensure user has filled bio-data form
+            $biodata = biodata::where('application_number', Session::get('application_number'))->first();
 
-    public function loadPaymentPage(){
-        $applicant = Session::get('application_number');
-        return view('applicants.payment',['applicant'=>$applicant]);
+            if ($biodata != null) {
+                //check if user has already paid
+                $payment = ApplicationPayment::where('application_number', Session::get('application_number'))->first();
+                if ($payment == null) {
+                    $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
+
+                    //get the amount to be paid
+                    $programme_amount = ProgramAmount::where('programme', $applicant->programme)->first();
+                    $applicant->amount = $programme_amount->amount;
+                    return view('applicants.payment', ['pageName' => 'Payment', 'applicant' => $applicant, 'bio-data' =>  $biodata]);
+
+                } else {
+                    //user has already made payment
+                    return redirect('/admissions/dashboard/application');
+                }
+            } else {
+                //redirect to bio-data form
+                return redirect()->route('applicant_bio_data');
+            }
+        } else {
+            //redirect to the login page
+            return redirect('/login');
+        }
     }
 
     private function verifyLogin()
@@ -111,36 +138,5 @@ class PaymentController extends Controller
         }
     }
 
-    public function loadPayment()
-    {
-        //ensure use is logged in
-        if ($this->verifyLogin()) {
-            //ensure user has filled bio-data form
-            $applicant_bio_data = bioData::where('application_number', Session::get('application_number'))->first();
-
-            if ($applicant_bio_data != null) {
-                //check if user has already paid
-                $payment = ApplicationPayment::where('application_number', Session::get('application_number'))->first();
-                if ($payment == null) {
-                    $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
-
-                    //get the amount to be paid
-                    $programme_amount = progamount::where('programme', $applicant->programme)->first();
-                    $applicant->amount = $programme_amount->amount;
-
-                    return view('payment', ['pageName' => 'Payment', 'applicant' => $applicant, 'bio-data' => $applicant_bio_data]);
-                } else {
-                    //user has already made payment
-                    return redirect('/admissions/nce/dashboard/application');
-                }
-            } else {
-                //redirect to bio-data form
-                return redirect('applicant_bio_data');
-            }
-        } else {
-            //redirect to the login page
-            return redirect('/login');
-        }
-    }
-    
+ 
 }

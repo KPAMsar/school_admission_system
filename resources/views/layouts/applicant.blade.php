@@ -47,7 +47,7 @@
       <a href="" data-toggle="dropdown" class="nav-link">Admission</a>
 
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="{{route('applicant_application_page')}}" class="dropdown-item">
+          <a href="" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
               <div class="media-body">
@@ -163,7 +163,7 @@
         <img src="{{ url('assets/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="" class="d-block">{{Auth::user()->email}}</a>
+        <a href="" class="d-block">auth email</a>
       </div>
     </div>
 
@@ -233,7 +233,7 @@
         <li class="nav-item">
           <a href="" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
-            <form action="{{route('update_admin',Auth::user()->id)}}" method="post">
+            <form action="" method="post">
               @csrf 
               @method('PUT')
               <input type="submit" class="ben btn-class">
