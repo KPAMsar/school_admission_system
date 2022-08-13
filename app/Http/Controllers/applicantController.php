@@ -221,7 +221,7 @@ class applicantController extends Controller
                 }
             } else {
                 //redirect to bio-data form
-                return redirect('/admissions/dashboard/bio-data');
+                return redirect('applicant_bio_data');
             }
         } else {
             //redirect to the login page

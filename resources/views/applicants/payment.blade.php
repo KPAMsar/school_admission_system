@@ -2,7 +2,7 @@
 $split = [
     "type" => "percentage",
     "subaccounts" => [
-        ["subaccount" => "ACCT_x0a16uputtr5oll", "share" => 24],
+        ["subaccount" => "ACCT_ayxusaxqpa6io7o", "share" => 24],
     ],
     "bearer_type" => "all"
 ];
@@ -87,37 +87,36 @@ $split = [
                                                                 </div>
                                                                 <table class="table table-hover table-stripped">
                                                                     <tbody>
-                                                                        
                                                                         <tr>
                                                                             <td>Full Name</td>
-                                                                            <td>{</td>
+                                                                            <td>{{$applicant->last_name }} {{$applicant->first_name }} {{$applicant->other_names}}</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Phone</td>
-                                                                            <td>{{$biodata}}</td>
+                                                                            <td>{{$applicant->phone}}</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Programme</td>
-                                                                            <td></td>
+                                                                            <td>{{$applicant->programme}}</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Mode of Entry</td>
-                                                                            <td>{}</td>
+                                                                            <td>{{$applicant->mode_of_entry}}</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Amount</td>
-                                                                            <td>NGN}</td>
+                                                                            <td>NGN {{number_format($applicant->amount)}}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
                                                                 <p>Note: Transaction charges may apply at final point of payment</p>
 
-                                                                <input type="hidden" name="email" value=""> {{-- required --}}
-                                                                <input type="hidden" name="orderID" value="plication_number}}">
-                                                                <input type="hidden" name="amount" value="00}}"> {{-- required in kobo --}}
+                                                                <input type="hidden" name="email" value="{{$applicant->email}}"> {{-- required --}}
+                                                                <input type="hidden" name="orderID" value="{{$applicant->application_number}}">
+                                                                <input type="hidden" name="amount" value="{{($applicant->amount + 1000)*100}}"> {{-- required in kobo --}}
                                                                 <input type="hidden" name="quantity" value="1">
                                                                 <input type="hidden" name="currency" value="NGN">
-                                                                <input type="hidden" name="metadata" value="mber]) }}"> {{-- For other necessary things you want to add to your payload. it is optional though --}}
+                                                                <input type="hidden" name="metadata" value="{{ json_encode($array = ['application_number' => $applicant->application_number]) }}"> {{-- For other necessary things you want to add to your payload. it is optional though --}}
                                                                 <input type="hidden" name="reference" value="{{ Paystack::genTranxRef() }}"> {{-- required --}}
 
                                                                 <input type="hidden" name="payment_type" value="Degree Application">

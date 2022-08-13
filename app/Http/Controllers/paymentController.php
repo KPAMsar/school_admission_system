@@ -106,7 +106,7 @@ class PaymentController extends Controller
                     //get the amount to be paid
                     $programme_amount = ProgramAmount::where('programme', $applicant->programme)->first();
                     $applicant->amount = $programme_amount->amount;
-                    return view('applicants.payment', ['pageName' => 'Payment', 'applicant' => $applicant, 'bio-data' =>  $biodata]);
+                    return view('applicants.payment', ['pageName' => 'Payment', 'applicant' => $applicant, 'biodata' =>  $biodata]);
 
                 } else {
                     //user has already made payment
