@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\biodata;
 use Jajo\NG;
 use App\Models\applicant;
+use App\Models\ApplicantionDetail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,9 @@ use App\Models\ProgramAmount;
 use Illuminate\Support\Facades\Hash;
 use App\Models\ApplicationSubjects;
 use App\Models\ApplicationPrograms;
+use App\Models\ApplicationDetail;
+use App\Models\ApplicationOLevelResult;
+use App\Models\ApplicationSchool;
 
 
 class applicantController extends Controller
@@ -256,6 +260,142 @@ class applicantController extends Controller
             //redirect to the login page
             return redirect('/admissions/login');
         }
+    }
+
+
+    public function submitApplicationForm(Request $request)
+    {
+        if ($this->verifyLogin()) {
+            $request->validate([
+                'passport' => 'required',
+                'first_choice' => 'required',
+                'second_choice' => 'required',
+                'year_of_graduation' => 'required',
+                'first_sitting_result' => 'required',
+                'birth_certificate' => 'required'
+            ]);
+
+            //upload the passport
+            $passport = $request->file('passport');
+            $extension = $passport->getClientOriginalExtension();
+            $file_name = Session::get('application_number') . '.' . $extension;
+
+            if ($passport->storeAs("passports", $file_name, "public")) {
+                $application = ApplicationDetail::create([
+                    'application_number' => Session::get('application_number'),
+                    'first_choice' => $request['first_choice'],
+                    'jamb_score' => $request['jamb_score'],
+                    'second_choice' => $request['second_choice'],
+                    'year_of_graduation' => $request['year_of_graduation'],
+                    'passport' => $file_name,
+                    'status' => 'Pending'
+                ]);
+
+                //add all olevel results
+                $olevel = json_decode($request['olevel_result'], true);
+
+                foreach ($olevel as $result) {
+                    ApplicationOLevelResult::create([
+                        'application_id' => $application->id,
+                        'subject' => $result['subject'],
+                        'grade' => $result['grade'],
+                        'examination' => $result['examination'],
+                        'sitting' => $result['sitting'],
+                        'year' => $result['year']
+                    ]);
+                }
+
+                //add all schools attended
+                $schools = json_decode($request['schools_attended'], true);
+
+                foreach ($schools as $school) {
+                    ApplicationSchool::create([
+                        'application_id' => $application->id,
+                        'school_name' => $school['name'],
+                        'reg_num' => $school['registration_no'],
+                        'certificate' => $school['certificate'],
+                        'institution' => $school['institution'],
+                        'entry_year' => $school['entry_year'],
+                        'year_graduated' => $school['year_graduated']
+                    ]);
+                }
+
+                //upload documents
+                if (!empty($request['first_sitting_result'])) {
+                    $result = $request->file('first_sitting_result');
+                    $extension = $result->getClientOriginalExtension();
+                    $file_name = Session::get('application_number') . '.' . $extension;
+
+                    if ($result->storeAs("first_sitting_results", $file_name, "public")) {
+                        //update application
+                        $application->update([
+                            'first_sitting_olevel_result' => $file_name
+                        ]);
+                    }
+                }
+
+                if (!empty($request['second_sitting_result'])) {
+                    $result = $request->file('second_sitting_result');
+                    $extension = $result->getClientOriginalExtension();
+                    $file_name = Session::get('application_number') . '.' . $extension;
+
+                    if ($result->storeAs("second_sitting_results", $file_name, "public")) {
+                        //update application
+                        $application->update([
+                            'second_sitting_olevel_result' => $file_name
+                        ]);
+                    }
+                }
+
+                if (!empty($request['birth_certificate'])) {
+                    $result = $request->file('birth_certificate');
+                    $extension = $result->getClientOriginalExtension();
+                    $file_name = Session::get('application_number') . '.' . $extension;
+
+                    if ($result->storeAs("birth_certificates", $file_name, "public")) {
+                        //update application
+                        $application->update([
+                            'birth_certificate' => $file_name
+                        ]);
+                    }
+                }
+
+                //update applicant
+                $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
+
+                $applicant->update([
+                    'status' => 'Submitted'
+                ]);
+
+                //redirect to application successful screen
+                return redirect('/admissions/dashboard/application/success');
+            } else {
+                return redirect()->back()->with('error', 'An error occurred, please try again later.');
+            }
+        } else {
+            //redirect to the login page
+            return redirect('/admissions/login');
+        }
+    }
+
+
+    public function showApplicationSuccess()
+    {
+        if ($this->verifyLogin()) {
+            $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
+
+            return view('applicants.application_complete_success', ['applicant' => $applicant, 'pageName' => 'Application Completed']);
+        } else {
+            //redirect to the login page
+            return redirect('/admissions/login');
+        }
+    }
+
+    public function printApplicationSlip()
+    {
+        $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
+dd($applicant->getApplication->getFirstChoice->course);
+        return view('applicants.print', ['pageName' => 'Print Slip', 'applicant' => $applicant]);
     }
 
     public function showAdmissionStatus(){

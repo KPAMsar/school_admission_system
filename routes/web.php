@@ -48,7 +48,9 @@ Route::controller(adminController::class)->group(function(){
     Route::get('/admin/transactions', 'transaction')->name('admin_transaction_');
     Route::delete('/admin/delete-Admin-user/{id}', 'deleteAdminUser')->name('admin_delete_admin_');
     Route::put('/admin-update/{id}', 'updateAdmin')->name('update_admin');
-
+    Route::get('/admin/application-subjects', 'showSubjects')->name('admin_application-subjects');
+    Route::post('/admin/application-subjects', 'saveSubjects')->name('admin_save_application-subjects');
+    Route::delete('/admin/application-subjects/{id}', 'deleteSubject')->name('admin_delete_application-subjects');
 
 
 });
@@ -63,14 +65,17 @@ Route::controller(applicantController::class)->group(function(){
     Route::post('/getlga', 'sendApplicantState')->name('send_applicant_lga');
     Route::get('/admission-status', 'showAdmissionStatus')->name('applicant_admission_status');
     Route::get('/admissions/dashboard/application', 'loadApplicationForm')->name('applicant_application');
+    Route::post('/admissions/dashboard/application', 'submitApplicationForm')->name('save_applicant_application');
+    Route::get('/admissions/dashboard/application/success', 'showApplicationSuccess')->name('show_application_success');
+    Route::get('/admissions/dashboard/application/success/print-slip', 'printApplicationSlip')->name('Print_application_success_slip');
 
-
+    
     //application login
     Route::get('/admissions/login', [applicantController::class, 'applicationLogin'])->name('get_applicant_login');
     Route::get('/admissions/login/{id}', [applicantController::class, 'applicationLogin'])->name('getapplicant_login');
     Route::post('/admissions/login', [applicantController::class, 'processApplicationLogin'])->name('post_applicant_login');
 
-    //DEGREE ROUTES
+    //DEGREE ROUTES   
     Route::get('/admissions/dashboard', 'applicationPage')->name('applicant_dashboard_page');
 
 

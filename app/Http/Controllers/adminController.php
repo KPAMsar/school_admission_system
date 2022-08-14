@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\admin;
 use App\Models\ApplicationPrograms;
+use App\Models\ApplicationSubjects;
 use App\Models\ProgramAmount;
 use App\Models\programs;
 use App\Models\Transation;
@@ -185,4 +186,26 @@ class adminController extends Controller
         return back()->with("success", "Password changed successfully!");
 }
 
+public function showSubjects(){
+    $subjects = ApplicationSubjects::all();
+    return view('admin.subjects',['subjects'=>$subjects]);
+}
+public function saveSubjects(Request $request){
+    // $request->validate([
+    //  'name'=>'required',
+    //  'status'=>'required'
+    // ]);
+
+    ApplicationSubjects::create([
+        'name'=>$request->subject,
+        'status'=>$request->status
+    ]);
+    return back()->with('success','Operation Successful..');
+
+}
+
+public function deleteSubject($id){
+    $subject = ApplicationSubjects::find($id)->delete();
+    return back()->with('success','Operation Succesful');
+}
 }

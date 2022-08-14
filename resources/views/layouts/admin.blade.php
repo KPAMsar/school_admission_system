@@ -227,6 +227,14 @@
               </a>
             </li>
             <li class="nav-item">
+              <a href="{{route('admin_application-subjects')}}" class="nav-link">
+                <i class="nav-icon fa fa-users"></i>
+                <p>
+                  Subjects
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="{{route('admin_program_amount')}}" class="nav-link">
                 <i class="nav-icon fa fa-users"></i>
                 <p>
