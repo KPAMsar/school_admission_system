@@ -25,18 +25,27 @@ class applicantController extends Controller
 
     private function verifyLogin()
     {
+        
         if (Session::get('application_number') != null && Session::get('logged_in') != null) {
             //verify that user is applying for degree
-            $applicant = Applicant::where('application_number', Session::get('application_number'))->where('programme', 'DEGREE')->first();
+            $applicant = applicant::where('application_number', Session::get('application_number'))->where('programme', 'DEGREE')->first();
 
             if ($applicant != null) {
+
                 return true;
             } else {
                 return false;
             }
-        } else {
+        
+
+
+        } 
+        else
+        {
+
             return false;
         }
+
     }
 
     public function index()
@@ -53,16 +62,17 @@ class applicantController extends Controller
 
     public function processApplicationLogin(Request $request)
     {
-        $request->validate([
-            'application_number' => 'required',
-            'password' => 'required'
-        ]);
+         $request->validate([
+             'application_number' => 'required',
+             'password' => 'required'
+         ]);
 
         //load the applicants details
         $applicant = applicant::where('application_number', $request['application_number'])->first();
-
+       
         if ($applicant != null) {
             //validate the password
+            
             if (Hash::check($request['password'], $applicant->password)) {
                 Session::put('application_number', $request['application_number']);
                 Session::put('logged_in', true); //subsequently use a token instead
@@ -86,7 +96,9 @@ class applicantController extends Controller
     public function bioData()
     {
         //first verify if use is logged in
-        if (!$this->verifyLogin()) {
+        if ($this->verifyLogin()) {
+        
+
         $applicant = biodata::where('application_number', Session::get('application_number'))->first();
             $ng = new NG();
 
@@ -94,7 +106,7 @@ class applicantController extends Controller
             return view('applicants.bio_data', ['pageName' => 'Bio-Data', 'applicant' => $applicant, 'states' => $states]);
         } else {
             //redirect to the login page
-            return redirect('login');
+            return redirect('/admissions/login');
         }
     }
 
@@ -199,37 +211,6 @@ class applicantController extends Controller
     }
 
 
-    public function loadPayment()
-    {
-        //ensure use is logged in
-        if ($this->verifyLogin()) {
-            //ensure user has filled bio-data form
-            $biodata = biodata::where('application_number', Session::get('application_number'))->first();
-
-            if ( $biodata != null) {
-                //check if user has already paid
-                $payment = ApplicationPayment::where('application_number', Session::get('application_number'))->first();
-                if ($payment == null) {
-                    $applicant = applicant::where('application_number', Session::get('application_number'))->first();
-
-                    //get the amount to be paid
-                    $programme_amount = ProgramAmount::where('programme', $applicant->programme)->first();
-                    $applicant->amount = $programme_amount->amount;
-
-                    return view('applicants.payment', ['pageName' => 'Payment', 'applicant' => $applicant, 'bio-data' =>  $biodata]);
-                } else {
-                    //user has already made payment
-                    return redirect('/admissions/dashboard/application');
-                }
-            } else {
-                //redirect to bio-data form
-                return redirect('applicant_bio_data');
-            }
-        } else {
-            //redirect to the login page
-            return redirect('/admissions/login');
-        }
-    }
 
  
     public function applicationPage()
@@ -261,7 +242,7 @@ class applicantController extends Controller
                     //get the programmes
                     $programmes = ApplicationPrograms::where('status', 'Active')->where('affiliation', Session::get('school'))->orderBy('course')->get();
 
-                    return view('frontend.degree.applicant.application', ['pageName' => 'Application', 'applicant' => $applicant, 'subjects' => $subjects, 'programmes' => $programmes]);
+                    return view('applicants.application', ['pageName' => 'Application', 'applicant' => $applicant, 'subjects' => $subjects, 'programmes' => $programmes]);
                 } else {
                     //redirect to the payment page
                     return redirect('/admissions/dashboard/payment');

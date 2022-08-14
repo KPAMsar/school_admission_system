@@ -24,7 +24,10 @@ class PaymentController extends Controller
      * @return Url
      */
 
-  
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
 
     public function redirectToGateway(Request $request)
@@ -105,7 +108,7 @@ class PaymentController extends Controller
                 //check if user has already paid
                 $payment = ApplicationPayment::where('application_number', Session::get('application_number'))->first();
                 if ($payment == null) {
-                    $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
+                    $applicant = applicant::where('application_number', Session::get('application_number'))->first();
 
                     //get the amount to be paid
                     $programme_amount = ProgramAmount::where('programme', $applicant->programme)->first();
@@ -122,7 +125,7 @@ class PaymentController extends Controller
             }
         } else {
             //redirect to the login page
-            return redirect('/login');
+            return redirect('admission/login');
         }
     }
 

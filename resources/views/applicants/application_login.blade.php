@@ -69,12 +69,12 @@
         </form>
 
       <div class="">
-      <p class="mb-1">
+      <!-- <p class="mb-1">
             <a href="{{ url('/register')}}">Sign up??</a>
         </p>
         <p class="mb-1">
             <a href="{{ url('/password/reset')}}">Forggotten Password </a>
-        </p>
+        </p> -->
       </div>
 
     </div>

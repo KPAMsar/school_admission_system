@@ -40,12 +40,12 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function logOut(){
-        Session::remove('application_number');
-        Session::remove('logged_in');
+    // public function logOut(){
+    //     Session::remove('application_number');
+    //     Session::remove('logged_in');
 
-        return redirect()->route('logout');
+    //     return redirect()->route('logout');
 
-    }
+    // }
 }
 
