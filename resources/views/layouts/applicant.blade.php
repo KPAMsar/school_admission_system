@@ -295,7 +295,7 @@
                 </div>
                 <div class="col">
                   <div class="modal-footer">
-                  <a href="{{route('logout')}}"class="nav-link">
+                  <a href="{{route('admission-logout')}}"class="nav-link">
                     <button type="button" class="btn btn-danger" style="float:right;">Logout</button>
                   </a>
                   </div>

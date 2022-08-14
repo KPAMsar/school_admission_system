@@ -12,13 +12,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\ApplicationPayment;
 use App\Models\ProgramAmount;
 use Illuminate\Support\Facades\Hash;
+use App\Models\ApplicationSubjects;
+use App\Models\ApplicationPrograms;
 
 
 class applicantController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
+    //  public function __construct()
+    //  {
+    //      $this->middleware('auth');
     // }
 
     private function verifyLogin()
@@ -241,46 +243,39 @@ class applicantController extends Controller
         $applicant = applicant::where('application_number', Session::get('application_number'))->first();
         return view('applicants.nce.dashboard',['applicant'=>$applicant]);
     }
-    // public function applicationStart(){
-    //     return view('applicants.application_start');
-    // }
-
-    // public function saveApplicant(Request $request){
-    //     //  $request->validate([
-    //     //      'mode_of_entry'=>'required',
-    //     //      'session'=>'required',
-    //     //      'first_name'=>'required',
-    //     //      'last_name'=>'required',
-    //     //      'other_names'=>'required',
-    //     //      'phone'=>'required',
-    //     //  ]);
-    //         $applicant = applicant::create([
-    //         'programme'=>'DEGREE',
-    //         'mode_of_entry'=>$request['mode_of_entry'],
-    //         'session'=>$request['session'],
-    //         'first_name'=>$request['first_name'],
-    //         'last_name'=>$request[ 'last_name'],
-    //         'other_names'=>$request['other_names'],
-    //         'phone'=>$request['phone_number'],
 
 
+    public function loadApplicationForm()
+    {
+        if ($this->verifyLogin()) {
+            $applicant = applicant::where('application_number', Session::get('application_number'))->first();
 
-    //     ]);
+            if ($applicant != null && $applicant->status == 'Application') {
+                //check payment details too
+                $payment = ApplicationPayment::where('application_number', Session::get('application_number'))->first();
 
-    //     //create the application number
-    //     $code = $applicant->id < 1000 ? str_repeat("0", (4 - strlen("$applicant->id"))) . $applicant->id : $applicant->id;
-    //     $application_number = getenv('SCHOOL_SHORT_CODE') . '-' . $code;
+                if ($payment != null) {
+                    //get the subjects
+                    $subjects = ApplicationSubjects::where('status', 'Active')->orderBy('name')->get();
 
-    //     $applicant->update([
-    //         'application_number' => $application_number
-    //     ]);
+                    //get the programmes
+                    $programmes = ApplicationPrograms::where('status', 'Active')->where('affiliation', Session::get('school'))->orderBy('course')->get();
 
-    //     Session::put('application_number',$application_number);
-
-
-    //     return redirect()->route('applicant_bio_data')->with('success','Operation Succesful.. ');
-
-    // }
+                    return view('frontend.degree.applicant.application', ['pageName' => 'Application', 'applicant' => $applicant, 'subjects' => $subjects, 'programmes' => $programmes]);
+                } else {
+                    //redirect to the payment page
+                    return redirect('/admissions/dashboard/payment');
+                }
+                
+            } else {
+                //redirect to the payment page
+                return redirect('/admissions/dashboard/payment');
+            }
+        } else {
+            //redirect to the login page
+            return redirect('/admissions/login');
+        }
+    }
 
     public function showAdmissionStatus(){
         return view('applicants.admission_status');

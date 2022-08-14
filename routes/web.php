@@ -21,12 +21,13 @@ use App\Http\Controllers\PaymentController;
 
  Route::get('/', function () {
      return view('welcome');
- });
+ })->name('welcome');
 
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logOut')->name('logout');
+Route::get('/admission-logout', 'App\Http\Controllers\Auth\LoginController@logOut')->name('admission-logout');
+Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 Route::get('/nav-select', [userAuth::class, 'index'])->name('nav-select');
 
 //ADMIN routes
@@ -61,6 +62,8 @@ Route::controller(applicantController::class)->group(function(){
     Route::post('/bio-data', 'saveBioData')->name('save_applicant_bio_data');
     Route::post('/getlga', 'sendApplicantState')->name('send_applicant_lga');
     Route::get('/admission-status', 'showAdmissionStatus')->name('applicant_admission_status');
+    Route::get('/admissions/dashboard/application', 'loadApplicationForm')->name('applicant_application');
+
 
     //application login
     Route::get('/admissions/login', [applicantController::class, 'applicationLogin'])->name('get_applicant_login');
@@ -94,3 +97,5 @@ Route::get('/admissions/dashboard/payment','loadPayment')->name('payment_page');
 
 //Payment Links
 Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'redirectToGateway'])->name('pay');
+Route::get('/payment/callback', [App\Http\Controllers\PaymentController::class, 'handleGatewayCallback']);
+

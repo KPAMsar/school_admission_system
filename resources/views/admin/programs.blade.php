@@ -151,7 +151,7 @@
                         </div>
                         <div class="col-md-12">
                             <label for="">Duration</label>
-                            <input type="text" class="form-control" placeholder="Duration" name="duration   ">
+                            <input type="text" class="form-control" placeholder="Duration" name="duration">
                         </div>
                     </div>
                 </div>

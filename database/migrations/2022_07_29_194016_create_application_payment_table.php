@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('application_number');
             $table->string('ref');
             $table->double('amount');
+            $table->double('base_amount');
             $table->string('payment_method');
             $table->timestamps();
         });

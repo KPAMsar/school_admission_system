@@ -7,7 +7,7 @@ use App\Models\applicant;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\admin;
-use App\Models\progamount;
+use App\Models\ApplicationPrograms;
 use App\Models\ProgramAmount;
 use App\Models\programs;
 use App\Models\Transation;
@@ -126,7 +126,7 @@ class adminController extends Controller
         //     'affliation'=>'required',
          ]);
 
-        programs::create([
+        ApplicationPrograms::create([
             'degree_awarded'=>$request->degree_awarded,
             'course'=>$request->course,
             'department'=>$request->department,
