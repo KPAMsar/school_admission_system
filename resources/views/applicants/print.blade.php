@@ -271,10 +271,10 @@
                         <center style="width: 100%;">
                             <table>
                                 <tbody>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>Affiliate School</td>
                                         <td>{</td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td>First Choice</td>
                                         <td>{{$applicantDetails->first_choice}}</td>

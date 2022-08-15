@@ -75,6 +75,7 @@ Route::controller(applicantController::class)->group(function(){
     Route::get('/admissions/dashboard/application/success', 'showApplicationSuccess')->name('show_application_success');
     Route::get('/admissions/dashboard/application/success/print-slip', 'printApplicationSlip')->name('Print_application_success_slip');
     Route::get('/admissions/dashboard/application/success/print-slip/print', 'printApplicationSlip')->name('Print_application_success_slip');
+    Route::get('/admissions/dashboard/payment/query', 'queryPayment')->name('applicant_query_payment');
 
     
     //application login

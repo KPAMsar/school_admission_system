@@ -18,6 +18,8 @@ use App\Models\ApplicationPrograms;
 use App\Models\ApplicationDetail;
 use App\Models\ApplicationOLevelResult;
 use App\Models\ApplicationSchool;
+use App\Models\Payment;
+use Illuminate\Facades\Support\Storage;
 
 
 class applicantController extends Controller
@@ -414,6 +416,91 @@ class applicantController extends Controller
      ]);
     }
 
+
+
+    public function queryPayment()
+    {
+        //get a pending payment ref
+        $payment_attempts = Payment::where('payment_type', 'Degree Application')->where('status', 'Pending')->where('user', Session::get('application_number'))->get();
+
+        if ($payment_attempts != null) {
+            //run through all transactions and query for the right one if it exists
+            $validTransaction = false;
+            $queryResp = [];
+
+            foreach ($payment_attempts as $payment_attempt) {
+                $queryResp = $this->verifyPayment($payment_attempt->reference);
+                if ($queryResp['status']) {
+                    if ($queryResp['data']['status'] == "success" && $queryResp['message'] == 'Verification successful') {
+                        $validTransaction = true;
+
+                        break;
+                    }
+                }
+            }
+
+            if ($validTransaction) {
+                //save payment details
+                ApplicationPayment::create(
+                    [
+                        'application_number' => Session::get('application_number'),
+                        'ref' => $queryResp['data']['reference'],
+                        'amount' => $queryResp['data']['amount'] / 100,
+                        'payment_method' => 'Paystack'
+                    ]
+                );
+
+                //update the payment attempts table
+                $payment_attempt = Payment::where('reference', $queryResp['data']['reference'])->first();
+                $payment_attempt->update([
+                    'status' => 'Completed'
+                ]);
+
+                //update the applicant's status to payment
+                $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
+
+                $applicant->update([
+                    'status' => 'Application'
+                ]);
+
+                //redirect to final the application form page
+                return redirect('/admissions/dashboard/application');
+            } else {
+                return redirect()->back()->with('error', 'Sorry, it\'s like you don\'t have a pending payment record. If you are sure you made a payment that hasn\'t reflected on your account, please contact the admin.');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Sorry, it\'s like you don\'t have a pending payment record. If you are sure you made a payment that hasn\'t reflected on your account, please contact the admin.');
+        }
+    }
+
+
+    private function sendGeneratedInvoice($receiver, $invoice_number)
+    {
+        
+        $path = asset('images/logo.png');
+        $logo = Storage::disk('local')->get('images/logo.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($logo);
+
+        // view()->share('properties', $properties);
+        $pdf = PDF::loadView('backend.facility.invoice_pdf', ['invoice' => $invoice, 'items' => $items, 'invoice_to' => $invoice_to, 'company' => $company, 'logo' => $base64])->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf->save('invoices/' . $invoice->code . '.pdf');
+
+        // return $pdf->download('invoice.pdf');
+
+        //sending the mail
+        $message = "<h3>Hello,</h3>
+        <p>We have received your application for our degree programme. Find attached your application slip.</p>
+        <br/>
+
+        <p>Thank you,<br>Admissions Department,<br>COE, Warri.</p>
+        ";
+
+
+        $file_encoded = base64_encode(file_get_contents('invoices/' . $invoice->code . '.pdf'));
+
+        return $this->sendEmailWithAttachment($receiver, "Admission Application", $message, $file_encoded, $invoice->code . '.pdf');
+    }
     public function showAdmissionStatus(){
         return view('applicants.admission_status');
     }

@@ -71,7 +71,7 @@ $split = [
                                                             <h2 style="display: inline-block;"><strong>Application Payment</strong>
                                                                 <small>Use the form below to make payment</small>
                                                             </h2>
-                                                            <a class="btn btn-warning btn-sm float-right" href="{{url('/admissions/dashboard/payment/query')}}">Query Payment</a>
+                                                            <a class="btn btn-warning btn-sm float-right" href="{{route('applicant_query_payment')}}">Query Payment</a>
 
 
 
