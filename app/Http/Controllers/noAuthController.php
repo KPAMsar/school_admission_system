@@ -83,6 +83,7 @@ class noAuthController extends Controller
     public function showSuccessOnStart(){
         $code = Session::get('application_number');
 
+       
         $applicant = applicant::where('application_number', $code)->first();
 
 

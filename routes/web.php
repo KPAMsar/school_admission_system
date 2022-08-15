@@ -34,8 +34,10 @@ Route::get('/nav-select', [userAuth::class, 'index'])->name('nav-select');
 Route::controller(adminController::class)->group(function(){
     Route::get('/admin', 'index')->name('admin_home');
     Route::get('/admin/applicants', 'showApplicants')->name('admin_show_applicant');
+    Route::put('/admin/programs-amount/{id}', 'updateProgramAmount')->name('admin_update_program_amount');
     Route::get('/admin/programs-amount', 'programsAmount')->name('admin_program_amount');
-    Route::post('/admin/applicants', 'savePaymentAmount')->name('admin_save_program_');
+    Route::delete('/admin/programs-amount/{id}', 'deleteProgramAmount')->name('admin_delete_program_amount');
+    Route::post('/admin/applicants', 'saveProgramAmount')->name('admin_save_program_amount');
     Route::get('/admin/settings', 'settings')->name('admin_settings_');
     Route::post('/admin/settings', 'updatePassword')->name('admin_post_settings_');
 

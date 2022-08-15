@@ -5,83 +5,76 @@
     <!-- Content Header (Page header) -->
     <section class="content-header" style="padding-top:5rem; background-color: #e9ecef;">
         <div class="container " style="width:25rem; margin-bottom: 35vh;">
-         
+
             <div class="">
                 <div class="">
                     <div class="container">
                         <div class="row clearfix">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="login-box">
-          <!-- /.login-logo -->
-          <div class="card card-outline card-primary">
-              <div class="card-header text-center">
-                  <img src="{{ url('assets/img/logo.png')}}" alt="Logo" class="brand-image img-circle elevation-3" style="height: 90px; width: auto;">
+                                    <!-- /.login-logo -->
+                                    <div class="card card-outline card-primary">
+                                        <div class="card-header text-center">
+                                            <img src="{{ url('assets/img/logo.png')}}" alt="Logo" class="brand-image img-circle elevation-3" style="height: 90px; width: auto;">
 
-              </div>
-              <div class="card-body">
-                  <p class="login-box-msg">Account Login<br>Please log in to continue</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="login-box-msg">Applicant Login<br>Please log in to continue</p>
 
-                  <form action="{{ route('login') }}" method="post">
-                      @csrf
+                                            <form action="{{ route('post_applicant_login') }}" method="post">
+                                                @csrf
 
-                      <div class="input-group mb-3">
-                          <input type="text" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                          <div class="input-group-append">
-                              <div class="input-group-text">
-                                  <span class="fas fa-envelope"></span>
-                              </div>
-                          </div>
-                          @error('email')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                          @enderror
-                      </div>
-                      <div class="input-group mb-3">
-                          <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" required autocomplete="current-password">
-                          <div class="input-group-append">
-                              <div class="input-group-text">
-                                  <span class="fas fa-lock"></span>
-                              </div>
-                          </div>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" id="application_number" class="form-control @error('application number') is-invalid @enderror" placeholder="Application Number" name="application_number" value="{{ old('application_number') }}" required autocomplete="application_number" autofocus>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-envelope"></span>
+                                                        </div>
+                                                    </div>
+                                                    @error('application number')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" required autocomplete="current-password">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-lock"></span>
+                                                        </div>
+                                                    </div>
 
-                          @error('password')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                          @enderror
-                      </div>
-                      <div class="row">
-                          <div class="col-8">
-                              <div class="icheck-primary">
-                                  <input type="checkbox" id="remember" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                  <label for="remember">
-                                      Remember Me
-                                  </label>
-                              </div>
-                          </div>
-                          <!-- /.col -->
-                          <div class="col-4">
-                              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                          </div>
-                          <!-- /.col -->
-                      </div>
-                  </form>
+                                                    @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        <div class="icheck-primary">
+                                                            <input type="checkbox" id="remember" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                            <label for="remember">
+                                                                Remember Me
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.col -->
+                                                    <div class="col-4">
+                                                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                                                    </div>
+                                                    <!-- /.col -->
+                                                </div>
+                                            </form>
 
-                  <div class="">
-                      <p class="mb-1">
-                          <a href="{{ url('/register')}}">Sign up??</a>
-                      </p>
-                      <p class="mb-1">
-                          <a href="{{ url('/password/reset')}}">Forggotten Password </a>
-                      </p>
-                  </div>
 
-              </div>
-              <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-      </div>
+
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
                             </div>
                         </div>
 
@@ -89,7 +82,7 @@
 
                 </div>
             </div>
-</section> 
+    </section>
 
 
 </div>

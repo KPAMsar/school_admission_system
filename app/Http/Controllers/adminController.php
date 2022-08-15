@@ -37,10 +37,7 @@ class adminController extends Controller
         // return redirect()->route('admin.programs')->with('success','Operation sucessfull..');
 
     }
-    public function programsAmount(){
-        $data = ProgramAmount::all();
-        return view('admin.programs_amount',['data' => $data]);
-    }
+ 
     public function transactions(){
         return view('admin.transaction');
     }
@@ -101,20 +98,38 @@ class adminController extends Controller
         return back();
     }
 
-    public function savePaymentAmount(Request $request){
-        $request->validate([
-            'programme'=>'required',
-            'entry_mode'=>'required',
-            'amount'=>'required'
-        ]);
+    public function programsAmount(){
+        $data = ProgramAmount::all();
+        return view('admin.programs_amount',['data' => $data]);
+    }
+
+    public function saveProgramAmount(Request $request){
+         $request->validate([
+             'programme'=>'required',
+             'entry_mode'=>'required',
+             'amount'=>'required'
+         ]);
 
        ProgramAmount::create([
             'programme'=>$request->programme,
             'entry_mode'=>$request->entry_mode,
             'amount'=>$request->amount
         ]);
-        return redirect()->route('admin_program_amount')->with('Operation Successful..');
+        return back()->with('Operation Successful..');
 
+    }
+
+    public function deleteProgramAmount($id){
+        $programAmount = ProgramAmount::find($id)->delete();
+        return back()->with('sucess','Operation Successful..');
+    }
+    public function updateProgramAmount(Request $request, $id){
+        $programAmount = ProgramAmount::find($id)->update([
+            'programme'=>$request->programme,
+            'entry_mode'=>$request->entry_mode,
+            'amount'=>$request->amount
+        ]);
+        return back()->with('success','Operation Successfull..');
     }
 
     public function updateSession(Request $request, $id){

@@ -14,44 +14,52 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container">
-                
-                <div class="">
-                <div class="container">
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="">
-                <div class="header">
-                    <h2><strong>Hello {{$applicant->first_name }},</strong><br>
-                    <h2><strong>Degree Dahboard</strong>
-                    </h2>
 
-                </div>
-                <form action="" method="post">
-                    @csrf
+                    <div class="">
+                        <div class="container">
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="container card">
+                                        <div class="header">
+                                            <h1 style="text-align:center; margin-top:4rem;margin-bottom:6px;  "><strong>Welcome</strong> <br>
+                                                <!-- <small>To stand a chance of gaining admission into our school, start the application process by filling the form below.</small> -->
 
-                    <div class="body">
-                        <p>This is your space. You can stay updated regarding the state of your application by visiting this space regularly and also checking your admission status.</p>
-                        <p>Thank you for your interest in our school, we wish you the best of luck in your application.
-                            <br><br>
-                        Click below to start your application.
-                        </p>
+                                            </h1>
+                                            <br>
 
-                    </div>
-                </form>
-    <br>
-                <div class="col-md-6 ">
-                    <div class="form-group">
-                        <a href="{{route('applicant_application_Start')}}">
-                        <input type="button" class="btn btn-primary" value=" Start Application">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="container">
+                                                <div class="container">
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                            <div class="">
+                                                                <div class="body">
 
-</div>
-                </div>
+
+                                                                <h2>Hello<strong> {{$applicant->first_name }},</strong><br><BR>
+
+                                                                    <p>This is your space. You can stay updated regarding the state of your application by visiting this space regularly and also checking your admission status.</p>
+                                                                    <p>Thank you for your interest in our school, we wish you the best of luck in your application.
+                                                                    <div class="row clearfix">
+
+                                                                    </div>
+                                                                </div>
+                                                                <br>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
             </section>
 
 
