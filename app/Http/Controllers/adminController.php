@@ -91,7 +91,7 @@ class adminController extends Controller
 
     public function deleteAdminUser($id){
         $admin = admin::find($id)->delete();
-        return redirect()->route('admin_access_settings_')->with('success','Operation Succesfull..');
+        return back()->with('success','Operation Succesfull..');
     }
 
     public function cancel(){
@@ -123,12 +123,16 @@ class adminController extends Controller
         $programAmount = ProgramAmount::find($id)->delete();
         return back()->with('sucess','Operation Successful..');
     }
+
     public function updateProgramAmount(Request $request, $id){
+        
         $programAmount = ProgramAmount::find($id)->update([
             'programme'=>$request->programme,
             'entry_mode'=>$request->entry_mode,
             'amount'=>$request->amount
         ]);
+       
+       
         return back()->with('success','Operation Successfull..');
     }
 

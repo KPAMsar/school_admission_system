@@ -57,10 +57,10 @@
                                     <td class="text-right">
                                         <div class="actions">
 
-                                            <a href="{{route('admin_update_program_amount',$item->id)}}" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editAmount">
+                                            <a href="{{url('/admin/programs-amount/'.$item->id)}}" class="btn btn-sm bg-success-light "  data-idUpdate="'.$item->id'"  data-toggle="modal" data-target="#editAmount">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="{{ route('admin_delete_program_amount',$item->id)}}" class="" data-toggle="modal" data-target="#deleteAmount" class="btn btn-sm bg-danger-light">
+                                            <a href="" class="" data-toggle="modal" data-target="#deleteAmount" class="btn btn-sm bg-danger-light">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </div>

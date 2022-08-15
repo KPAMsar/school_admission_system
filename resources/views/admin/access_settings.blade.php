@@ -50,8 +50,8 @@
                             <tbody>
                                 @foreach($admin as $key=> $data)
 
-                                  
-                                    <tr>
+
+                                <tr>
                                     <td>{{$key + 1}}</td>
                                     <td>{{$data->first_name . ' '.$data->last_name .' '.$data->other_names}}</td>
                                     <td>{{$data->phone_number}}</td>
@@ -68,7 +68,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                   
+
                                 @endforeach
                             </tbody>
                             <tfoot>
@@ -216,54 +216,56 @@
 </div>
 
 
-  <!-- MODAL -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+<!-- MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form action="#" method="">
-            
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+            <Form action="{{ route('admin_delete_admin_',$data->id)}}" method="post">
+                @method('DELETE')
+                @csrf
 
-            <div class="modal-body">
-              <div class="form-group row">
-                <div class="col-md-12" style="text-align:center;">
-                  <label for="">You are about to delete an Admin User
-                    <br>
-                    This action is irreversible.
-                  </label>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Admin User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
 
-              </div>
-            </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-md-12" style="text-align:center;">
+                            <label for="">You are about to delete an Admin User
+                                <br>
+                                This action is irreversible.
+                            </label>
+                        </div>
 
-            <div class="container">
-              <div class="row">
-                <div class="">
-                  <div class="modal-footer">
-                      <a href="{{ route('admin_home')}}">
-                        <button type="button" class="btn btn-primary" style="float:left;">Cancel</button>
-                      </a>
+                    </div>
                 </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="">
+                            <div class="modal-footer">
+                                <a href="{{ route('admin_home')}}">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="float:left;">Cancel</button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="modal-footer">
+                                <a>
+                                    <button type="submit" class="btn btn-danger" style="float:right;">Delete</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                  <div class="modal-footer">
-                  <a href="{{ route('logout')}}">
-                    <button type="button" class="btn btn-danger" style="float:right;">Delete</button>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
+            </form>
 
         </div>
-      </div>
     </div>
+</div>
 
 @endsection
 
