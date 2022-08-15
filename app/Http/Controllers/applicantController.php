@@ -19,7 +19,8 @@ use App\Models\ApplicationDetail;
 use App\Models\ApplicationOLevelResult;
 use App\Models\ApplicationSchool;
 use App\Models\Payment;
-use Illuminate\Facades\Support\Storage;
+use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class applicantController extends Controller
