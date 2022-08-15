@@ -396,14 +396,22 @@ class applicantController extends Controller
         $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
         $applicationNumber = Session::get('application_number');
         $applicantDetails = ApplicationDetail::where('application_number',$applicationNumber)->first();
-        $firstchoice = ApplicationDetail::where('application_number',$applicationNumber)->get('first_choice')->first();
-        $secondchoice = ApplicationDetail::where('application_number',$applicationNumber)->get('second_choice');
-        $firstchoiceDuration = ApplicationPrograms::where('course',$firstchoice[0])->get('duration');
-        $secondchoiceDuration = ApplicationPrograms::where('course',$secondchoice)->first();
-        $jambScore = ApplicationDetail::where('application_number',$applicationNumber)->where('jamb_score','')->first( );
-// dd($applicant->getApplication->getFirstChoice->course);
-// dd($jambScore);  
-        return view('applicants.print', ['pageName' => 'Print Slip', 'applicant' => $applicant,'applicantDetails'=>$applicantDetails,'jambScore'=>$jambScore]);
+        $firstchoice =$applicantDetails->first_choice;
+        $secondchoice = $applicantDetails->second_choice;
+
+        $first = ApplicationPrograms::where('course',$firstchoice)->first();
+         $firstchoiceDuration = json_decode($first);
+
+        $second = ApplicationPrograms::where('course',$secondchoice)->first();
+         $secondchoiceDuration =json_decode($second);
+        // /  dd($secondchoiceDuration);
+        return view('applicants.print', [
+            'pageName' => 'Print Slip', 
+            'applicant' => $applicant,
+            'applicantDetails'=>$applicantDetails,
+            'firstchoiceDuration'=>$firstchoiceDuration, 
+            'secondchoiceDuration'=>$secondchoiceDuration 
+     ]);
     }
 
     public function showAdmissionStatus(){

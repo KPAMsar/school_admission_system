@@ -65,7 +65,8 @@
             background-color: #EBFAF5 !important;
         }
 
-        td, th {
+        td,
+        th {
             padding: 5px 15px 5px 15px;
             border-bottom: 1px solid #dcdcdc;
             height: 25px;
@@ -128,7 +129,8 @@
                 background-color: #EBFAF5 !important;
             }
 
-            td, th {
+            td,
+            th {
                 padding: 3px;
                 border-bottom: 1px solid #dcdcdc;
                 height: 25px;
@@ -277,18 +279,18 @@
                                         <td>First Choice</td>
                                         <td>{{$applicantDetails->first_choice}}</td>
                                     </tr>
-                                    <!-- <tr>
+                                    <tr>
                                         <td>Course Duration</td>
-                                        <td>{{$applicant->getApplication->getFirstChoice->duration}} Years</td>
-                                    </tr> -->
+                                        <td>{{$firstchoiceDuration->duration}} Years</td>
+                                    </tr>
                                     <tr>
                                         <td>Second Choice</td>
                                         <td>{{$applicantDetails->second_choice}}</td>
                                     </tr>
-                                    <!-- <tr>
+                                    <tr>
                                         <td>Course Duration</td>
-                                        <td>{{$applicant->getApplication->getSecondChoice->duration}} Years</td>
-                                    </tr> -->
+                                        <td>{{$secondchoiceDuration->duration}} Years</td>
+                                    </tr>
                                     <tr>
                                         <td>JAMB Score</td>
                                         <td>{{$applicantDetails->jamb_score }}</td>
