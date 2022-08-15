@@ -271,27 +271,27 @@
                                 <tbody>
                                     <tr>
                                         <td>Affiliate School</td>
-                                        <td>{{$applicant->getApplication->getSchool->school}}</td>
+                                        <td>{</td>
                                     </tr>
                                     <tr>
                                         <td>First Choice</td>
-                                        <td>{{$applicant->getApplication->getFirstChoice->course}}</td>
+                                        <td>{{$applicantDetails->first_choice}}</td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>Course Duration</td>
                                         <td>{{$applicant->getApplication->getFirstChoice->duration}} Years</td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td>Second Choice</td>
-                                        <td>{{$applicant->getApplication->getSecondChoice->course}}</td>
+                                        <td>{{$applicantDetails->second_choice}}</td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>Course Duration</td>
                                         <td>{{$applicant->getApplication->getSecondChoice->duration}} Years</td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td>JAMB Score</td>
-                                        <td>{{$applicant->getApplication->jamb_score}}</td>
+                                        <td>{{$applicantDetails->jamb_score }}</td>
                                     </tr>
                                 </tbody>
                             </table>

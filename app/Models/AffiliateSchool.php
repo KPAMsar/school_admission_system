@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ApplicantionDetail extends Model
+class AffiliateSchool extends Model
 {
     use HasFactory;
-    protected $table='application_details';
-    protected $guarded=[];
+    protected $table='affiliate_schools';
+    protected $guarded = [];
+
 }

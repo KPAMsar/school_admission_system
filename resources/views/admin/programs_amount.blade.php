@@ -57,9 +57,9 @@
                                     <td class="text-right">
                                         <div class="actions">
 
-                                            <a href="{{url('/admin/programs-amount/'.$item->id)}}" class="btn btn-sm bg-success-light "  data-idUpdate="'.$item->id'"  data-toggle="modal" data-target="#editAmount">
+                                            <!-- <a href="{{url('/admin/programs-amount/'.$item->id)}}" class="btn btn-sm bg-success-light "  data-idUpdate="'.$item->id'"  data-toggle="modal" data-target="#editAmount">
                                                 <i class="fas fa-edit"></i>
-                                            </a>
+                                            </a> -->
                                             <a href="" class="" data-toggle="modal" data-target="#deleteAmount" class="btn btn-sm bg-danger-light">
                                                 <i class="fas fa-trash"></i>
                                             </a>
@@ -147,7 +147,7 @@
 </div>
 
 <!-- MODAL -->
-<div class="modal fade" id="editAmount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="editAmount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="{{route('admin_update_program_amount',$item->id)}}" method="post">
@@ -191,7 +191,7 @@
 
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- MODAL -->
 <div class="modal fade" id="deleteAmount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

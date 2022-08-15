@@ -361,7 +361,7 @@ class applicantController extends Controller
                 }
 
                 //update applicant
-                $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
+                $applicant = applicant::where('application_number', Session::get('application_number'))->first();
 
                 $applicant->update([
                     'status' => 'Submitted'
@@ -394,8 +394,16 @@ class applicantController extends Controller
     public function printApplicationSlip()
     {
         $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
-dd($applicant->getApplication->getFirstChoice->course);
-        return view('applicants.print', ['pageName' => 'Print Slip', 'applicant' => $applicant]);
+        $applicationNumber = Session::get('application_number');
+        $applicantDetails = ApplicationDetail::where('application_number',$applicationNumber)->first();
+        $firstchoice = ApplicationDetail::where('application_number',$applicationNumber)->get('first_choice')->first();
+        $secondchoice = ApplicationDetail::where('application_number',$applicationNumber)->get('second_choice');
+        $firstchoiceDuration = ApplicationPrograms::where('course',$firstchoice[0])->get('duration');
+        $secondchoiceDuration = ApplicationPrograms::where('course',$secondchoice)->first();
+        $jambScore = ApplicationDetail::where('application_number',$applicationNumber)->where('jamb_score','')->first( );
+// dd($applicant->getApplication->getFirstChoice->course);
+// dd($jambScore);  
+        return view('applicants.print', ['pageName' => 'Print Slip', 'applicant' => $applicant,'applicantDetails'=>$applicantDetails,'jambScore'=>$jambScore]);
     }
 
     public function showAdmissionStatus(){

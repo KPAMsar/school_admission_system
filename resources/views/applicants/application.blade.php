@@ -85,7 +85,7 @@
                                                             <select class="form-control show-tick" name="first_choice">
                                                                 <option value="">-- Select --</option>
                                                                 @foreach($programmes as $programme)
-                                                                <option value="{{$programme->id}}">{{$programme->course}}</option>
+                                                                <option value="{{$programme->course}}">{{$programme->course}}</option>
                                                                 @endforeach
 
                                                             </select>
@@ -95,7 +95,7 @@
                                                             <select class="form-control show-tick" name="second_choice">
                                                                 <option value="">-- Select --</option>
                                                                 @foreach($programmes as $programme)
-                                                                <option value="{{$programme->id}}">{{$programme->course}}</option>
+                                                                <option value="{{$programme->course}}">{{$programme->course}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div><br>
