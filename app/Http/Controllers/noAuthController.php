@@ -11,11 +11,14 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\AcademicSession;
 
 class noAuthController extends Controller
 {
     public function index(){
-        return view('applicants.application_start');
+        $session = AcademicSession::where('status','Active')->first();
+
+        return view('applicants.application_start',['session'=>$session]);
     }
 
     public function saveApplicant(Request $request){

@@ -33,7 +33,9 @@
                                                     <label for="session">Session</label>
                                                     <select class="form-control show-tick" name="session">
                                                         <option value="">-- Select --</option>
-                                                        <option value="2021/2022">2021/2022</option>
+                                                        @foreach($session as $data)
+                                                        <option value="2021/2022">{{$data['']}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-6">

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userAuth;
 use App\Http\Controllers\noAuthController;
 use App\Http\Controllers\PaymentController;
+use App\Models\AcademicSession;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,7 @@ use App\Http\Controllers\PaymentController;
 
  Route::get('/', function () {
      return view('welcome');
- })->name('welcome');
-
+ })->name('welcome',);
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -47,10 +47,14 @@ Route::controller(adminController::class)->group(function(){
     Route::post('/admin/access-settings', 'createAdminUser')->name('admin_save_access_settings_');
     Route::get('/admin/transactions', 'transaction')->name('admin_transaction_');
     Route::delete('/admin/delete-Admin-user/{id}', 'deleteAdminUser')->name('admin_delete_admin_');
-    Route::put('/admin-update/{id}', 'updateAdmin')->name('update_admin');
+    Route::put('/admin-update/{id}', 'updateAdmin')->name('update_admin');  
     Route::get('/admin/application-subjects', 'showSubjects')->name('admin_application-subjects');
     Route::post('/admin/application-subjects', 'saveSubjects')->name('admin_save_application-subjects');
     Route::delete('/admin/application-subjects/{id}', 'deleteSubject')->name('admin_delete_application-subjects');
+    Route::get('/admin/academics/session', 'showSession')->name('admin_show_session');
+    Route::post('/admin/academics/session', 'saveSession')->name('admin_save_session');
+    Route::put('/admin/academics/session/{id}', 'updateSession')->name('admin_update_session');
+    Route::delete('/admin/academics/session/delete/{id}', 'deleteSession')->name('admin_delete_session');
 
 
 });
@@ -68,6 +72,7 @@ Route::controller(applicantController::class)->group(function(){
     Route::post('/admissions/dashboard/application', 'submitApplicationForm')->name('save_applicant_application');
     Route::get('/admissions/dashboard/application/success', 'showApplicationSuccess')->name('show_application_success');
     Route::get('/admissions/dashboard/application/success/print-slip', 'printApplicationSlip')->name('Print_application_success_slip');
+    Route::get('/admissions/dashboard/application/success/print-slip/print', 'printApplicationSlip')->name('Print_application_success_slip');
 
     
     //application login

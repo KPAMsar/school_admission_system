@@ -14,6 +14,7 @@ use App\Models\programs;
 use App\Models\Transation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\AcademicSession;
 
 
 class adminController extends Controller
@@ -58,16 +59,16 @@ class adminController extends Controller
     }
 
     public function createAdminUser(Request $request){
-        //   $request->validate([
-        //      'first_name'=>'required',
-        //       'last_name'=>'required',
-        //       'other_names'=>'required',
-        //       'phone_number'=>'required',
-        //       'email'=>'required' ,
-        //      'phone_number'=>'required',
-        //       'password'=>'required | confirmed',
+            $request->validate([
+               'first_name' =>'required',
+                'last_name' =>'required',
+                'other_names'=>'required',
+                'phone_number'=>'required',
+                'email'=>     'required' ,
+               'phone_number'=>'required',
+               'password' => 'required|confirmed',
 
-        //   ]);
+            ]);
 
         DB::transaction( function() use ($request){
             User::create([
@@ -84,9 +85,9 @@ class adminController extends Controller
                 'phone_number'=>$request->phone_number,
                 'email'=>$request->email,
             ]);
-            return redirect()->route('admin_access_settings_')->with('succses','Operation Succesfull..');
     
         });
+        return back()->with('succses','Operation Succesfull..');
 
 
     }
@@ -114,6 +115,33 @@ class adminController extends Controller
         ]);
         return redirect()->route('admin_program_amount')->with('Operation Successful..');
 
+    }
+
+    public function updateSession(Request $request, $id){
+      $session = AcademicSession::find($id)->update([
+        'session' => $request->session,
+      ]);
+      return back()->with('success','Operation successful.');
+
+    }
+    public function deleteSession($id){
+      AcademicSession::find($id)->delete();
+      return back()->with('success','Operation Successful..');
+    }
+
+    public function saveSession(Request $request){
+      $request->validate([
+        'session'=> 'required',
+      ]);
+      AcademicSession::create([
+        'session'=>$request->session,
+      ]);
+      return back()->with('success','Operation successful.');
+    }
+
+    public function showSession(){
+        $session = AcademicSession::all();
+        return view('admin.academic_session',['session'=> $session]);
     }
 
     public function savePrograms(Request $request){
