@@ -27,11 +27,11 @@
 
                                         <p>Hello ,</p>
                                         {{$applicant->first_name .' '.$applicant->last_name.' '.$applicant->other_names}} 
-                                        <p>You have successfully created an account with us, to continue and complete your application, please click on the button below.</p>
-
+                                        <p>You have successfully created an account with us, kindly note that your  <strong>Application Number</strong> is {{$applicant->application_number}}.
+                                        <p>To continue and complete your application, please click on the button below.Thank you.</p>
                                         <div class="row clearfix">
                                             <div class="col-sm-12">
-                                                <a class="btn btn-raised btn-round btn-primary" href="{{route('login')}}">Proceed to Login</a>
+                                                <a class="btn btn-raised btn-round btn-primary" href="{{route('get_applicant_login')}}">Proceed to Login</a>
 
                                             </div>
                                         </div>
