@@ -8,6 +8,8 @@ use App\Http\Controllers\userAuth;
 use App\Http\Controllers\noAuthController;
 use App\Http\Controllers\PaymentController;
 use App\Models\AcademicSession;
+use Dompdf\Dompdf;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -74,7 +76,7 @@ Route::controller(applicantController::class)->group(function(){
     Route::post('/admissions/dashboard/application', 'submitApplicationForm')->name('save_applicant_application');
     Route::get('/admissions/dashboard/application/success', 'showApplicationSuccess')->name('show_application_success');
     Route::get('/admissions/dashboard/application/success/print-slip', 'printApplicationSlip')->name('Print_application_success_slip');
-    Route::get('/admissions/dashboard/application/success/print-slip/print', 'printApplicationSlip')->name('Print_application_success_slip');
+    // Route::get('/admissions/dashboard/application/success/print-slip/print', 'printApplicationSlip')->name('Print_application_success_slip');
     Route::get('/admissions/dashboard/payment/query', 'queryPayment')->name('applicant_query_payment');
 
     
@@ -111,4 +113,21 @@ Route::get('/admissions/dashboard/payment','loadPayment')->name('payment_page');
 //Payment Links
 Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'redirectToGateway'])->name('pay');
 Route::get('/payment/callback', [App\Http\Controllers\PaymentController::class, 'handleGatewayCallback']);
+
+// Route::get('/admissions/dashboard/application/success/print-slip',function(){
+// // reference the Dompdf namespace
+
+// // instantiate and use the dompdf class
+// $dompdf = new Dompdf();
+// $dompdf->loadHtml(view('applicants.print'));
+
+// // (Optional) Setup the paper size and orientation
+// $dompdf->setPaper('A4', 'landscape');
+
+// // Render the HTML as PDF
+// $dompdf->render();
+
+// // Output the generated PDF to Browser
+// $dompdf->stream('application_print.pdf',['Attachment'=>false]);
+// });
 

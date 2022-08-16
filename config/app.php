@@ -182,8 +182,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Unicodeveloper\Paystack\PaystackServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
-
 
         /*
          * Package Service Providers...
@@ -213,7 +211,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
 
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),

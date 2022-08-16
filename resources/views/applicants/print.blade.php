@@ -199,13 +199,13 @@
     <div class="main">
         <div class="container">
             <div class="wrapper">
-                <center><img src="{{asset('assets/images/logo-coewarri.png')}}" width="500px" alt="" class="bg_img"></center>
+                <center><img src="{{asset('assets/images/logo.png')}}" width="500px" alt="" class="bg_img"></center>
                 <div class="certificate_content">
 
 
                     <div class="row" style="padding: 20px;">
                         <div class="col-sm-2">
-                            <img src="{{asset('assets/images/logo-coewarri.png')}}" alt="" style="width: 100px; height: auto;">
+                            <img src="{{asset('assets/images/logo.png')}}" alt="" style="width: 100px; height: auto;">
                         </div>
                         <div class="col-sm-8">
                             <center>

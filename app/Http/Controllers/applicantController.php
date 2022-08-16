@@ -19,8 +19,10 @@ use App\Models\ApplicationDetail;
 use App\Models\ApplicationOLevelResult;
 use App\Models\ApplicationSchool;
 use App\Models\Payment;
-use Illuminate\Support\Facades\Storage;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Facades\Support\Storage;
+use Dompdf\Dompdf;
+
+
 
 
 class applicantController extends Controller
@@ -32,7 +34,7 @@ class applicantController extends Controller
 
     private function verifyLogin()
     {
-        
+
         if (Session::get('application_number') != null && Session::get('logged_in') != null) {
             //verify that user is applying for degree
             $applicant = applicant::where('application_number', Session::get('application_number'))->where('programme', 'DEGREE')->first();
@@ -43,16 +45,10 @@ class applicantController extends Controller
             } else {
                 return false;
             }
-        
-
-
-        } 
-        else
-        {
+        } else {
 
             return false;
         }
-
     }
 
     public function index()
@@ -61,7 +57,7 @@ class applicantController extends Controller
     }
 
 
-    
+
     public function applicationLogin($applicaton_number = '')
     {
         return view('applicants.application_login', ['application_number' => !empty($applicaton_number) ? $applicaton_number : (Session::get('application_number') != null ? Session::get('application_number') : '')]);
@@ -69,24 +65,24 @@ class applicantController extends Controller
 
     public function processApplicationLogin(Request $request)
     {
-         $request->validate([
-             'application_number' => 'required',
-             'password' => 'required'
-         ]);
+        $request->validate([
+            'application_number' => 'required',
+            'password' => 'required'
+        ]);
 
         //load the applicants details
         $applicant = applicant::where('application_number', $request['application_number'])->first();
-       
+
         if ($applicant != null) {
             //validate the password
-            
+
             if (Hash::check($request['password'], $applicant->password)) {
                 Session::put('application_number', $request['application_number']);
                 Session::put('logged_in', true); //subsequently use a token instead
 
                 //load the applicant's dashboard based on type of application
                 if ($applicant->programme == 'DEGREE') {
-                    return redirect()->route('applicant_dashboard_page')->with('success','Welcome back');
+                    return redirect()->route('applicant_dashboard_page')->with('success', 'Welcome back');
                 } else {
                     return redirect()->route('applicant_nce_application_page');
                 }
@@ -104,9 +100,9 @@ class applicantController extends Controller
     {
         //first verify if use is logged in
         if ($this->verifyLogin()) {
-        
 
-        $applicant = biodata::where('application_number', Session::get('application_number'))->first();
+
+            $applicant = biodata::where('application_number', Session::get('application_number'))->first();
             $ng = new NG();
 
             $states = $ng->states;
@@ -121,10 +117,10 @@ class applicantController extends Controller
     {
         $sendData = $request->all();
         $ng = new NG();
-        
+
         $lgas = $ng->getLGA($sendData['state']);
-        
-        return response()->json(array('lga'=>json_encode($lgas)), 200);
+
+        return response()->json(array('lga' => json_encode($lgas)), 200);
     }
 
     public function saveBioData(Request $request)
@@ -176,15 +172,14 @@ class applicantController extends Controller
 
 
             //update the applicant status
-        $applicant = applicant::where('application_number', Session::get('application_number'))->first();
-        // $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
+            $applicant = applicant::where('application_number', Session::get('application_number'))->first();
+            // $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
             $applicant->update([
                 'status' => 'Payment'
             ]);
 
             //redirect to the payment page
             return redirect('/admissions/dashboard/payment');
-
         } else {
             //update the bio data details
             $bioData = biodata::where('application_number', $application_no)->first();
@@ -213,23 +208,22 @@ class applicantController extends Controller
             ]);
 
             return redirect()->back()->with('success', 'You have successfully updated your details.');
-
         }
     }
 
 
 
- 
+
     public function applicationPage()
     {
         $applicant = applicant::where('application_number', Session::get('application_number'))->first();
-        return view('applicants.Degree.dashboard',['applicant'=>$applicant]);
+        return view('applicants.Degree.dashboard', ['applicant' => $applicant]);
     }
 
     public function nceapplicationPage()
     {
         $applicant = applicant::where('application_number', Session::get('application_number'))->first();
-        return view('applicants.nce.dashboard',['applicant'=>$applicant]);
+        return view('applicants.nce.dashboard', ['applicant' => $applicant]);
     }
 
 
@@ -254,7 +248,6 @@ class applicantController extends Controller
                     //redirect to the payment page
                     return redirect('/admissions/dashboard/payment');
                 }
-                
             } else {
                 //redirect to the payment page
                 return redirect('/admissions/dashboard/payment');
@@ -398,23 +391,44 @@ class applicantController extends Controller
     {
         $applicant = Applicant::where('application_number', Session::get('application_number'))->first();
         $applicationNumber = Session::get('application_number');
-        $applicantDetails = ApplicationDetail::where('application_number',$applicationNumber)->first();
-        $firstchoice =$applicantDetails->first_choice;
+        $applicantDetails = ApplicationDetail::where('application_number', $applicationNumber)->first();
+        $firstchoice = $applicantDetails->first_choice;
         $secondchoice = $applicantDetails->second_choice;
 
-        $first = ApplicationPrograms::where('course',$firstchoice)->first();
-         $firstchoiceDuration = json_decode($first);
+        $first = ApplicationPrograms::where('course', $firstchoice)->first();
+        $firstchoiceDuration = json_decode($first);
 
-        $second = ApplicationPrograms::where('course',$secondchoice)->first();
-         $secondchoiceDuration =json_decode($second);
+        $second = ApplicationPrograms::where('course', $secondchoice)->first();
+        $secondchoiceDuration = json_decode($second);
+
+        // reference the Dompdf namespace
+
+                // instantiate and use the dompdf class
+                $dompdf = new Dompdf();
+                $dompdf->loadHtml(view('applicants.print', [
+                    'pageName' => 'Print Slip',
+                    'applicant' => $applicant,
+                    'applicantDetails' => $applicantDetails,
+                    'firstchoiceDuration' => $firstchoiceDuration,
+                    'secondchoiceDuration' => $secondchoiceDuration
+                ]));
+
+                // (Optional) Setup the paper size and orientation
+                $dompdf->setPaper('A4', 'landscape');
+
+                // Render the HTML as PDF
+                $dompdf->render();
+
+                // Output the generated PDF to Browser
+                $dompdf->stream('application_print.pdf', ['Attachment' => false]);
         // /  dd($secondchoiceDuration);
         return view('applicants.print', [
-            'pageName' => 'Print Slip', 
+            'pageName' => 'Print Slip',
             'applicant' => $applicant,
-            'applicantDetails'=>$applicantDetails,
-            'firstchoiceDuration'=>$firstchoiceDuration, 
-            'secondchoiceDuration'=>$secondchoiceDuration 
-     ]);
+            'applicantDetails' => $applicantDetails,
+            'firstchoiceDuration' => $firstchoiceDuration,
+            'secondchoiceDuration' => $secondchoiceDuration
+        ]);
     }
 
 
@@ -464,6 +478,8 @@ class applicantController extends Controller
                     'status' => 'Application'
                 ]);
 
+
+                
                 //redirect to final the application form page
                 return redirect('/admissions/dashboard/application');
             } else {
@@ -477,7 +493,7 @@ class applicantController extends Controller
 
     private function sendGeneratedInvoice($receiver, $invoice_number)
     {
-        
+
         $path = asset('images/logo.png');
         $logo = Storage::disk('local')->get('images/logo.png');
         $type = pathinfo($path, PATHINFO_EXTENSION);
@@ -502,9 +518,8 @@ class applicantController extends Controller
 
         return $this->sendEmailWithAttachment($receiver, "Admission Application", $message, $file_encoded, $invoice->code . '.pdf');
     }
-    public function showAdmissionStatus(){
+    public function showAdmissionStatus()
+    {
         return view('applicants.admission_status');
     }
-
-
 }
