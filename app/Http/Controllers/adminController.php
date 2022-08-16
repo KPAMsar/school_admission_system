@@ -15,6 +15,7 @@ use App\Models\Transation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AcademicSession;
+use App\Models\Payment;
 
 
 class adminController extends Controller
