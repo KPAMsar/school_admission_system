@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userAuth;
 use App\Http\Controllers\noAuthController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TransactionController;
 use App\Models\AcademicSession;
 use Dompdf\Dompdf;
 
@@ -105,14 +106,14 @@ Route::controller(noAuthController::class)->group(function(){
 
 });
 
-Route::controller(PaymentController::class)->group(function(){
+Route::controller(TransactionController::class)->group(function(){
 Route::get('/admissions/dashboard/payment','loadPayment')->name('payment_page');
 });
 
 
 //Payment Links
-Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'redirectToGateway'])->name('pay');
-Route::get('/payment/callback', [App\Http\Controllers\PaymentController::class, 'handleGatewayCallback']);
+Route::post('/pay', [App\Http\Controllers\TransactionController::class, 'redirectToGateway'])->name('pay');
+Route::get('/payment/callback', [App\Http\Controllers\TransactionController::class, 'handleGatewayCallback']);
 
 // Route::get('/admissions/dashboard/application/success/print-slip',function(){
 // // reference the Dompdf namespace
