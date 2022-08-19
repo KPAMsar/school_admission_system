@@ -61,7 +61,7 @@
                                     <td class="text-right">
                                         <div class="actions">
 
-                                            <a href="" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal">
+                                            <a href="" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal" onclick="loadProgramDetails('{{$data->id}}','{{$data->programme}}','{{$data->degree_awarded}}','{{$data->course}}','{{$data->department}}','{{$data->faculty}}','{{$data->duration}}')">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="{{route('admin_delete_program_',$data->id)}}" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
@@ -152,6 +152,64 @@
                         <div class="col-md-12">
                             <label for="">Duration</label>
                             <input type="text" class="form-control" placeholder="Duration" name="duration">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action=""  id="" method="post">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Program</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="">Programme</label>
+                            <input type="text" class="form-control" placeholder="Programme" id="programme" name="programme">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Degree Awarded</label>
+                            <select class="form-control show-tick" name="degree_awarded" id="degree_awarded">
+                                <option value="">-- Select --</option>
+                                <option value="BSc">BSc</option>
+                                <option value="HND">HND</option>
+                                <option value="OND">OND</option>
+                                <option value="ND">ND</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Course</label>
+                            <input type="text" class="form-control" placeholder="Course" id="course" name="course">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Department</label>
+                            <input type="text" class="form-control" placeholder="Department" id="department" name="department">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Faculty</label>
+                            <input type="text" class="form-control" placeholder="Faculty" id="faculty" name="faculty">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Duration</label>
+                            <input type="text" class="form-control" placeholder="Duration" id="duration" name="duration">
                         </div>
                     </div>
                 </div>
@@ -257,5 +315,15 @@
             $("#myModal").modal("show");
         });
     });
+
+
+    function loadProgramDetails(programme,degree_awarded,course,department,faculty,duration){
+        document.getElementById('programme').value = programme;
+        document.getElementById('degree_awarded').value = degree_awarded;
+        document.getElementById('course').value = course
+        document.getElementById('department').value = department
+        document.getElementById('faculty').value = faculty
+        document.getElementById('duration').value = duration
+    }
 </script>
 @endsection

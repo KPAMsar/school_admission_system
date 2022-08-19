@@ -55,7 +55,7 @@
                                     <td class="text-right">
                                         <div class="actions">
 
-                                            <a href="{{route('admin_delete_application-subjects',$data->id)}}" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal">
+                                            <a href="{{route('admin_delete_application-subjects',$data->id)}}" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal" onclick="loadSubjectDetails('{{$data->id}}','{{$data->subject}}','{{$data->status}}')">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="{{route('admin_delete_application-subjects',$data->id)}}" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
@@ -204,7 +204,7 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="">Subject</label>
-                            <input type="text" class="form-control"  value="" placeholder="Subject" name="subject">
+                            <input type="text" class="form-control"  id="subject" placeholder="Subject" name="subject">
                         </div>
                         <div class="col-md-12">
                             <label for="">Status</label>
@@ -272,5 +272,12 @@
             $("#myModal").modal("show");
         });
     });
+
+    function loadSubjectDetails(id,subject,status){
+        var id = id;
+        document.getElementById('subject').value = subject;
+        document.getElementById('status').value = status;
+        
+    }
 </script>
 @endsection

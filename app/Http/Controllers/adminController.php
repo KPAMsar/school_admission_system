@@ -187,6 +187,28 @@ class adminController extends Controller
         
     }
 
+    public function updateProgram(Request $request, $id){
+        $request->validate([
+            'degree_awarded'=>'required',
+            'course'=>'required',
+            'department'=>'required',
+            'faculty'=>'required',
+       //     'status'=>'required',
+            'duration'=>'required',
+       //     'affliation'=>'required',
+        ]);
+
+       ApplicationPrograms::find($id)->update([
+           'degree_awarded'=>$request->degree_awarded,
+           'course'=>$request->course,
+           'department'=>$request->department,
+           'faculty'=>$request->faculty,
+           'duration'=>$request->duration,
+       ]);
+
+       return back()->with('success','Operation Sucessful');
+    }
+
     public function transaction(){
         $transaction = Transation::all();
 

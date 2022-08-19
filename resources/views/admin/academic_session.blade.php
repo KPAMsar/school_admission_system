@@ -57,7 +57,7 @@
                                     <td class="text-right">
                                         <div class="actions">
 
-                                            <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal" data-target="#editModal">
+                                            <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal"  data-target="#editModal" onclick="loadSessionsDetails('{{$data->id}}')">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
@@ -269,5 +269,10 @@
             $("#myModal").modal("show");
         });
     });
+
+
+    function loadSessionsDetails(sessionId){
+       console.log(hii);
+    }
 </script>
 @endsection
