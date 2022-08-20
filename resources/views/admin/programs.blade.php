@@ -61,7 +61,7 @@
                                     <td class="text-right">
                                         <div class="actions">
 
-                                            <a href="" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal" onclick="loadProgramDetails('{{$data->id}}','{{$data->programme}}','{{$data->degree_awarded}}','{{$data->course}}','{{$data->department}}','{{$data->faculty}}','{{$data->duration}}')">
+                                            <a href="" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal" onclick="loadProgramDetails('{{$data->id}}','{{$data->degree_awarded}}','{{$data->course}}','{{$data->department}}','{{$data->faculty}}','{{$data->duration}}')">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="{{route('admin_delete_program_',$data->id)}}" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
@@ -169,21 +169,22 @@
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action=""  id="" method="post">
+            <form action="{{url('admin/programs')}}" method="post">
+                @method('PUT')
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Program</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Program</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
+                <input type="hidden" name="programme_id" id="programme_id">
                 <div class="modal-body">
                     <div class="form-group row">
-                        <div class="col-md-12">
+                        <!-- <div class="col-md-12">
                             <label for="">Programme</label>
                             <input type="text" class="form-control" placeholder="Programme" id="programme" name="programme">
-                        </div>
+                        </div> -->
                         <div class="col-md-12">
                             <label for="">Degree Awarded</label>
                             <select class="form-control show-tick" name="degree_awarded" id="degree_awarded">
@@ -251,8 +252,8 @@
                     <div class="row">
                         <div class="">
                             <div class="modal-footer">
-                                <a href="{{ route('admin_home')}}">
-                                    <button type="button" class="btn btn-primary" style="float:left;">Cancel</button>
+                                <a href="">
+                                    <button type="button" class="btn btn-primary"   data-dismiss="modal"style="float:left;">Cancel</button>
                                 </a>
                             </div>
                         </div>
@@ -317,8 +318,9 @@
     });
 
 
-    function loadProgramDetails(programme,degree_awarded,course,department,faculty,duration){
-        document.getElementById('programme').value = programme;
+    function loadProgramDetails(id,degree_awarded,course,department,faculty,duration){
+
+        document.getElementById('programme_id').value = id;
         document.getElementById('degree_awarded').value = degree_awarded;
         document.getElementById('course').value = course
         document.getElementById('department').value = department

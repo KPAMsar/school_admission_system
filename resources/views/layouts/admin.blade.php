@@ -284,12 +284,13 @@
               </a>
             </li>
             @endif
+            
 
             <li class="nav-header"></li>
 
 
             <li class="nav-item">
-              <a href="" data-toggle="modal" data-target="#exampleModal" class="nav-link">
+              <a href="#" data-toggle="modal" data-target="#exampleModal" class="nav-link">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                 <i class="nav-icon far fa-circle text-info"></i>
                 <p>Logout</p>
@@ -406,7 +407,24 @@
   <script src="{{ url('assets/js/pages/dashboard.js')}}"></script>
 
   @yield('script')
+<script>
+$(function () {
+    var url = window.location;
+    // for single sidebar menu
+    $('ul.nav-sidebar a').filter(function () {
+        return this.href == url;
+    }).addClass('active');
 
+    // for sidebar menu and treeview
+    $('ul.nav-treeview a').filter(function () {
+        return this.href == url;
+    }).parentsUntil(".nav-sidebar > .nav-treeview")
+        .css({'display': 'block'})
+        .addClass('menu-open').prev('a')
+        .addClass('active');
+});
+
+</script>
 
 </body>
 

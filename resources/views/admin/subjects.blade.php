@@ -55,7 +55,7 @@
                                     <td class="text-right">
                                         <div class="actions">
 
-                                            <a href="{{route('admin_delete_application-subjects',$data->id)}}" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal" onclick="loadSubjectDetails('{{$data->id}}','{{$data->subject}}','{{$data->status}}')">
+                                            <a href="{{route('admin_delete_application-subjects',$data->id)}}" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal" onclick="loadSubjectDetails('{{$data->id}}','{{$data->name}}','{{$data->status}}')">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="{{route('admin_delete_application-subjects',$data->id)}}" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
@@ -168,7 +168,7 @@
                         <div class="">
                             <div class="modal-footer">
                                 <a href="">
-                                    <button type="button" class="btn btn-primary" style="float:left;">Cancel</button>
+                                    <button type="button" class="btn btn-primary"   data-dismiss="modal"style="float:left;">Cancel</button>
                                 </a>
                             </div>
                         </div>
@@ -191,7 +191,8 @@
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{route('admin_save_application-subjects')}}" method="post">
+            <form action="{{route('admin_update_application-subjects')}}" method="post">
+                @method('PUT')
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Subject</h5>
@@ -201,6 +202,8 @@
                 </div>
 
                 <div class="modal-body">
+                <input type="hidden" name="subject_id" id="subject_id">
+
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="">Subject</label>
@@ -220,7 +223,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>
 
@@ -274,7 +277,7 @@
     });
 
     function loadSubjectDetails(id,subject,status){
-        var id = id;
+        document.getElementById('subject_id').value = id;
         document.getElementById('subject').value = subject;
         document.getElementById('status').value = status;
         

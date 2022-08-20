@@ -57,7 +57,7 @@
                                     <td class="text-right">
                                         <div class="actions">
 
-                                            <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal"  data-target="#editModal" onclick="loadSessionsDetails('{{$data->id}}')">
+                                            <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal"  data-target="#editModal" onclick="loadSessionDetails('{{$data->id}}','{{$data->session}}','{{$data->status}}')">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
@@ -137,7 +137,7 @@
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{route('admin_update_session',$data->id)}}" method="post">
+            <form action="{{route('admin_update_session')}}" method="post">
                 @method('PUT')
                 @csrf
                 <div class="modal-header">
@@ -149,14 +149,15 @@
 
                 <div class="modal-body">
                     <div class="form-group row">
+                    <input type="hidden" name="session_id" id="session_id">
 
                         <div class="col-md-12">
                             <label for="">Session</label>
-                            <input type="text" name="session"  value="{{$data->session}}" class="form-control" placeholder="Academic Session">
+                            <input type="text" name="session"  value=""  id="session" class="form-control" placeholder="Academic Session">
                         </div>
                         <div class="col-md-12">
                             <label for="">Status</label>
-                            <select class="form-control show-tick" name="status">
+                            <select class="form-control show-tick"  id="status" name="status">
                                 <option value="">-- Select --</option>
                                 <option value="Active">Active</option>
                                 <option value="Inactive">Inactive</option>
@@ -205,7 +206,7 @@
                         <div class="">
                             <div class="modal-footer">
                                 <a href="">
-                                    <button type="button" class="btn btn-primary" style="float:left;">Cancel</button>
+                                    <button type="button" class="btn btn-primary"   data-dismiss="modal" style="float:left;">Cancel</button>
                                 </a>
                             </div>
                         </div>
@@ -271,8 +272,11 @@
     });
 
 
-    function loadSessionsDetails(sessionId){
-       console.log(hii);
+    function loadSessionDetails(id,session,status){
+        document.getElementById('session_id').value = id;
+        document.getElementById('session').value = session;
+        document.getElementById('status').value = status;
+        
     }
 </script>
 @endsection

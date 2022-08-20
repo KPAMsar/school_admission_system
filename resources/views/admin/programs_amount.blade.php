@@ -57,9 +57,9 @@
                                     <td class="text-right">
                                         <div class="actions">
 
-                                            <!-- <a href="{{url('/admin/programs-amount/'.$item->id)}}" class="btn btn-sm bg-success-light "  data-idUpdate="'.$item->id'"  data-toggle="modal" data-target="#editAmount">
+                                            <a href="" class="btn btn-sm bg-success-light "    data-toggle="modal" data-target="#editAmount" onclick="loadProgramDetails('{{$item->id}}','{{$item->programme}}','{{$item->entry_mode}}','{{$item->amount}}',)">
                                                 <i class="fas fa-edit"></i>
-                                            </a> -->
+                                            </a> 
                                             <a href="" class="" data-toggle="modal" data-target="#deleteAmount" class="btn btn-sm bg-danger-light">
                                                 <i class="fas fa-trash"></i>
                                             </a>
@@ -147,10 +147,10 @@
 </div>
 
 <!-- MODAL -->
-<!-- <div class="modal fade" id="editAmount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="editAmount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{route('admin_update_program_amount',$item->id)}}" method="post">
+            <form action="{{route('admin_update_program_amount')}}" method="post">
                 @method('PUT')
                 @csrf
                 <div class="modal-header">
@@ -162,13 +162,15 @@
 
                 <div class="modal-body">
                     <div class="form-group row">
+                    <input type="hidden" name="programme_amount_id" id="programme_amount_id">
+
                         <div class="col-md-12">
                             <label for="">Programme</label>
-                            <input type="text" class="form-control" placeholder="Programme" value="{{$item->programme}}"  name="programme">
+                            <input type="text" class="form-control" placeholder="Programme" value=""  id="programme" name="programme">
                         </div>
                         <div class="col-md-12">
                             <label for="">Entry Mode</label>
-                            <select class="form-control show-tick" name="entry_mode">
+                            <select class="form-control show-tick" name="entry_mode" id="entry_mode">
                                 <option value="">-- Select --</option>
                                 <option value="Bsc">BSC</option>
                                 <option value="HND">HND</option>
@@ -179,7 +181,7 @@
                         </div>
                         <div class="col-md-12">
                             <label for="">Amount</label>
-                            <input type="number" class="form-control" placeholder="Amount"  value="{{$item->amount}}"name="amount">
+                            <input type="number" class="form-control" placeholder="Amount"  id="amount" value=""name="amount">
                         </div>
                     </div>
                 </div>
@@ -191,7 +193,7 @@
 
         </div>
     </div>
-</div> -->
+</div> 
 
 <!-- MODAL -->
 <div class="modal fade" id="deleteAmount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -288,5 +290,14 @@
             $("#myModal").modal("show");
         });
     });
+
+    
+    function loadProgramDetails(id,programme,entry_mode,amount){
+
+document.getElementById('programme_amount_id').value = id;
+document.getElementById('programme').value = programme;
+document.getElementById('entry_mode').value = entry_mode;
+document.getElementById('amount').value = amount;
+}
 </script>
 @endsection

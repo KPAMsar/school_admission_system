@@ -45,7 +45,6 @@
                                 <th>Mode of Entry </th>
                                 <th>Session</th>
                                 <th>Status</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,17 +56,7 @@
                                 <td>{{$data->mode_of_entry}}</td>
                                 <td>{{$data->session}}</td>
                                 <td>{{$data->status}}</td>
-                                <td class="text-right">
-                                        <div class="actions">
-
-                                            <a href="" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
+                               
                             </tr>
                             @endforeach
                         </tbody>
@@ -79,7 +68,7 @@
                                 <th>Mode of Entry </th>
                                 <th>Session</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                
                             </tr>
                         </tfoot>
                     </table>

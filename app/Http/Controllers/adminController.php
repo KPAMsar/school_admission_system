@@ -38,7 +38,7 @@ class adminController extends Controller
         // return redirect()->route('admin.programs')->with('success','Operation sucessfull..');
 
     }
- 
+
     public function transactions(){
         return view('admin.transaction');
     }
@@ -83,7 +83,7 @@ class adminController extends Controller
                 'phone_number'=>$request->phone_number,
                 'email'=>$request->email,
             ]);
-    
+
         });
         return back()->with('succses','Operation Succesfull..');
 
@@ -125,20 +125,29 @@ class adminController extends Controller
         return back()->with('sucess','Operation Successful..');
     }
 
-    public function updateProgramAmount(Request $request, $id){
-        
-        $programAmount = ProgramAmount::find($id)->update([
+    public function updateProgramAmount(Request $request){
+        $request->validate([
+            'programme'=>'required',
+            'entry_mode'=>'required',
+            'amount'=>'required'
+        ]);
+
+        $programAmount = ProgramAmount::where('id',$request->programme_amount_id)->update([
             'programme'=>$request->programme,
             'entry_mode'=>$request->entry_mode,
             'amount'=>$request->amount
         ]);
-       
-       
+
+
         return back()->with('success','Operation Successfull..');
     }
 
-    public function updateSession(Request $request, $id){
-      $session = AcademicSession::find($id)->update([
+    public function updateSession(Request $request){
+        $request->validate([
+            'session'=> 'required',
+          ]);
+
+      $session = AcademicSession::where('id',$request->session_id)->update([
         'session' => $request->session,
       ]);
       return back()->with('success','Operation successful.');
@@ -184,10 +193,10 @@ class adminController extends Controller
         ]);
 
         return redirect()->route('admin_program_')->with('success','Operation Sucessful');
-        
+
     }
 
-    public function updateProgram(Request $request, $id){
+    public function updateProgram(Request $request){
         $request->validate([
             'degree_awarded'=>'required',
             'course'=>'required',
@@ -197,8 +206,8 @@ class adminController extends Controller
             'duration'=>'required',
        //     'affliation'=>'required',
         ]);
+       ApplicationPrograms::where('id',$request->programme_id)->update([
 
-       ApplicationPrograms::find($id)->update([
            'degree_awarded'=>$request->degree_awarded,
            'course'=>$request->course,
            'department'=>$request->department,
@@ -230,18 +239,18 @@ class adminController extends Controller
     public function updatePassword(Request $request, $id){
         $user = Auth::user();
         $old_password = $user->password;
-        $new_password = $request->password;  
-        
+        $new_password = $request->password;
+
         $request->validate([
             'old_password'=>'required',
             'new_password'=>'required |min:8',
             'confirm_password'=>'requird |confirmed' ,
         ]);
-            
+
         // if(Auth::check($old_password,$new_password) ){
         //     User::find(auth()->user())->update(['password'=> Hash::make($request->new_password)]);
         // }
-        
+
         #Match The Old Password
         if(!Hash::check($request->old_password, auth()->user()->password)){
             return back()->with("error", "Old Password Doesn't match!");
@@ -261,10 +270,10 @@ public function showSubjects(){
     return view('admin.subjects',['subjects'=>$subjects]);
 }
 public function saveSubjects(Request $request){
-    // $request->validate([
-    //  'name'=>'required',
-    //  'status'=>'required'
-    // ]);
+    $request->validate([
+        'subject'=>'required',
+        'status'=>'required'
+       ]);
 
     ApplicationSubjects::create([
         'name'=>$request->subject,
@@ -276,6 +285,20 @@ public function saveSubjects(Request $request){
 
 public function deleteSubject($id){
     $subject = ApplicationSubjects::find($id)->delete();
+    return back()->with('success','Operation Succesful');
+}
+
+public function updateSubjects(Request $request){
+
+     $request->validate([
+          'subject'=>'required',
+          'status'=>'required'
+         ]);
+         
+    $subject = ApplicationSubjects::where('id',$request->subject_id)->update([
+        'name'=>$request->subject,
+        'status'=>$request->status
+    ]);
     return back()->with('success','Operation Succesful');
 }
 }

@@ -37,7 +37,7 @@ Route::get('/nav-select', [userAuth::class, 'index'])->name('nav-select');
 Route::controller(adminController::class)->group(function(){
     Route::get('/admin', 'index')->name('admin_home');
     Route::get('/admin/applicants', 'showApplicants')->name('admin_show_applicant');
-    Route::put('/admin/programs-amount/{id}', 'updateProgramAmount')->name('admin_update_program_amount');
+    Route::put('/admin/programs-amount', 'updateProgramAmount')->name('admin_update_program_amount');
     Route::get('/admin/programs-amount', 'programsAmount')->name('admin_program_amount');
     Route::delete('/admin/programs-amount/{id}', 'deleteProgramAmount')->name('admin_delete_program_amount');
     Route::post('/admin/applicants', 'saveProgramAmount')->name('admin_save_program_amount');
@@ -47,7 +47,7 @@ Route::controller(adminController::class)->group(function(){
     Route::get('/admin/logout', 'showLogout')->name('admin_logout_');
     Route::get('/admin/programs', 'programs')->name('admin_program_');
     Route::delete('/admin/programs/{id}', 'deleteProgram')->name('admin_delete_program_');
-    Route::post('/admin/programs', 'updateProgram')->name('admin_update_program_');
+    Route::put('/admin/programs', 'updateProgram')->name('admin_update_program_');
     Route::post('/admin/programs', 'savePrograms')->name('admin_save_program_');
     Route::get('/admin/access-settings', 'accessSettings')->name('admin_access_settings_');
     Route::post('/admin/access-settings', 'createAdminUser')->name('admin_save_access_settings_');
@@ -55,11 +55,12 @@ Route::controller(adminController::class)->group(function(){
     Route::delete('/admin/delete-Admin-user/{id}', 'deleteAdminUser')->name('admin_delete_admin_');
     Route::put('/admin-update/{id}', 'updateAdmin')->name('update_admin');  
     Route::get('/admin/application-subjects', 'showSubjects')->name('admin_application-subjects');
+    Route::put('/admin/application-subjects', 'updateSubjects')->name('admin_update_application-subjects');
     Route::post('/admin/application-subjects', 'saveSubjects')->name('admin_save_application-subjects');
     Route::delete('/admin/application-subjects/{id}', 'deleteSubject')->name('admin_delete_application-subjects');
     Route::get('/admin/academics/session', 'showSession')->name('admin_show_session');
     Route::post('/admin/academics/session', 'saveSession')->name('admin_save_session');
-    Route::put('/admin/academics/session/{id}', 'updateSession')->name('admin_update_session');
+    Route::put('/admin/academics/session', 'updateSession')->name('admin_update_session');
     Route::delete('/admin/academics/session/delete/{id}', 'deleteSession')->name('admin_delete_session');
 
 
