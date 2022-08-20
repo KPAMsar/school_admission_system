@@ -64,7 +64,7 @@
                                             <a href="" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal" onclick="loadProgramDetails('{{$data->id}}','{{$data->degree_awarded}}','{{$data->course}}','{{$data->department}}','{{$data->faculty}}','{{$data->duration}}')">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="{{route('admin_delete_program_',$data->id)}}" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
+                                            <a href="" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light" onclick="loadDeleteDetails('{{$data->id}}')">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </div>
@@ -227,7 +227,9 @@
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="#" method="">
+            <form action="{{url('admin/programs')}}" method="post">
+                @method('DELETE')
+                @csrf
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Delete Program</h5>
@@ -242,6 +244,8 @@
                             <label for="">You are about to delete a program
                                 <br>
                                 This action is irreversible.
+                                <input type="hidden" name="programs_delete" id="programs_delete_id">
+
                             </label>
                         </div>
 
@@ -259,8 +263,8 @@
                         </div>
                         <div class="col">
                             <div class="modal-footer">
-                                <a href="{{ route('logout')}}">
-                                    <button type="button" class="btn btn-danger" style="float:right;">Delete</button>
+                                <a href="">
+                                    <button type="submit" class="btn btn-danger" style="float:right;">Delete</button>
                                 </a>
                             </div>
                         </div>
@@ -326,6 +330,10 @@
         document.getElementById('department').value = department
         document.getElementById('faculty').value = faculty
         document.getElementById('duration').value = duration
+    }
+    function loadDeleteDetails(id){
+        document.getElementById('programs_delete_id').value = id;
+        
     }
 </script>
 @endsection

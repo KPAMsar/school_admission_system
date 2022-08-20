@@ -39,14 +39,14 @@ Route::controller(adminController::class)->group(function(){
     Route::get('/admin/applicants', 'showApplicants')->name('admin_show_applicant');
     Route::put('/admin/programs-amount', 'updateProgramAmount')->name('admin_update_program_amount');
     Route::get('/admin/programs-amount', 'programsAmount')->name('admin_program_amount');
-    Route::delete('/admin/programs-amount/{id}', 'deleteProgramAmount')->name('admin_delete_program_amount');
+    Route::delete('/admin/programs-amount/', 'deleteProgramAmount')->name('admin_delete_program_amount');
     Route::post('/admin/applicants', 'saveProgramAmount')->name('admin_save_program_amount');
     Route::get('/admin/settings', 'settings')->name('admin_settings_');
     Route::post('/admin/settings', 'updatePassword')->name('admin_post_settings_');
 
     Route::get('/admin/logout', 'showLogout')->name('admin_logout_');
     Route::get('/admin/programs', 'programs')->name('admin_program_');
-    Route::delete('/admin/programs/{id}', 'deleteProgram')->name('admin_delete_program_');
+    Route::delete('/admin/programs', 'deleteProgram')->name('admindeleteprogram');
     Route::put('/admin/programs', 'updateProgram')->name('admin_update_program_');
     Route::post('/admin/programs', 'savePrograms')->name('admin_save_program_');
     Route::get('/admin/access-settings', 'accessSettings')->name('admin_access_settings_');
@@ -57,11 +57,11 @@ Route::controller(adminController::class)->group(function(){
     Route::get('/admin/application-subjects', 'showSubjects')->name('admin_application-subjects');
     Route::put('/admin/application-subjects', 'updateSubjects')->name('admin_update_application-subjects');
     Route::post('/admin/application-subjects', 'saveSubjects')->name('admin_save_application-subjects');
-    Route::delete('/admin/application-subjects/{id}', 'deleteSubject')->name('admin_delete_application-subjects');
+    Route::delete('/admin/application-subjects', 'deleteSubject')->name('admin_delete_application-subjects');
     Route::get('/admin/academics/session', 'showSession')->name('admin_show_session');
     Route::post('/admin/academics/session', 'saveSession')->name('admin_save_session');
     Route::put('/admin/academics/session', 'updateSession')->name('admin_update_session');
-    Route::delete('/admin/academics/session/delete/{id}', 'deleteSession')->name('admin_delete_session');
+    Route::delete('/admin/academics/session/delete', 'deleteSession')->name('admin_delete_session');
 
 
 });
@@ -70,8 +70,8 @@ Route::controller(adminController::class)->group(function(){
 Route::controller(applicantController::class)->group(function(){
     Route::get('/applicant', 'index')->name('applicant_home');
     Route::get('/bio-data', 'bioData')->name('applicant_bio_data');
-    //  Route::post('/start-application', 'saveApplicant')->name('applicant_save_application_start');
-    // Route::get('/start-application', 'applicationStart')->name('applicant_application_Start');
+    Route::put('/admissions/dashboard/change-password', 'changePassword')->name('applicant_change_password');
+    Route::get('/admission/settings', 'showApplicantSettings')->name('applicant_settings');
     Route::post('/bio-data', 'saveBioData')->name('save_applicant_bio_data');
     Route::post('/getlga', 'sendApplicantState')->name('send_applicant_lga');
     Route::get('/admission-status', 'showAdmissionStatus')->name('applicant_admission_status');
@@ -79,7 +79,6 @@ Route::controller(applicantController::class)->group(function(){
     Route::post('/admissions/dashboard/application', 'submitApplicationForm')->name('save_applicant_application');
     Route::get('/admissions/dashboard/application/success', 'showApplicationSuccess')->name('show_application_success');
     Route::get('/admissions/dashboard/application/success/print-slip', 'printApplicationSlip')->name('Print_application_success_slip');
-    // Route::get('/admissions/dashboard/application/success/print-slip/print', 'printApplicationSlip')->name('Print_application_success_slip');
     Route::get('/admissions/dashboard/payment/query', 'queryPayment')->name('applicant_query_payment');
 
     

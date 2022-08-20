@@ -16,7 +16,7 @@ use App\Models\AcademicSession;
 class noAuthController extends Controller
 {
     public function index(){
-        $session = AcademicSession::where('status','Active')->first();
+        $session = AcademicSession::where('status','Active')->get();
 
         return view('applicants.application_start',['session'=>$session]);
     }

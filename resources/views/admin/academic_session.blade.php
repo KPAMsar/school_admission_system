@@ -60,7 +60,7 @@
                                             <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal"  data-target="#editModal" onclick="loadSessionDetails('{{$data->id}}','{{$data->session}}','{{$data->status}}')">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
+                                            <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light"  onclick="loadDeleteDetails('{{$data->id}}')">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </div>
@@ -141,7 +141,7 @@
                 @method('PUT')
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Admin User</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Academic Session</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -167,7 +167,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>
 
@@ -178,7 +178,7 @@
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{route('admin_delete_session',$data->id)}}" method="post">
+            <form action="{{route('admin_delete_session')}}" method="post">
                 @method('DELETE')
                 @csrf
 
@@ -188,6 +188,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <input type="hidden" name="session_delete_id" id="session_delete_id">
 
                 <div class="modal-body">
                     <div class="form-group row">
@@ -276,6 +277,10 @@
         document.getElementById('session_id').value = id;
         document.getElementById('session').value = session;
         document.getElementById('status').value = status;
+        
+    }
+    function loadDeleteDetails(id){
+        document.getElementById('session_delete_id').value = id;
         
     }
 </script>

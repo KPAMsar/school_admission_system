@@ -1,3 +1,5 @@
+
+
 @extends('partials.navbar')
 
     @section('content')
@@ -33,9 +35,10 @@
                                                     <label for="session">Session</label>
                                                     <select class="form-control show-tick" name="session">
                                                         <option value="">-- Select --</option>
+                                                        @foreach($session as $data)
+                                                            <option  value="{{$data->session}}">{{$data->session}}</option>
+                                                        @endforeach
                                                         
-                                                        <option value="2021/2022">2021/2022</option>
-                                                       
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-6">

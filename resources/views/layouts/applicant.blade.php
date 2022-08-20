@@ -36,75 +36,10 @@
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Home</a>
-        </li>
+      
 
         </li>
-        <li class="nav-item dropdown">
-          <a href="" data-toggle="dropdown" class="nav-link">Admission</a>
-
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Degree Application
-                  </h3>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    NCE
-                  </h3>
-
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    PG
-                  </h3>
-
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Admission Status
-                  </h3>
-
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">Quick Links</a>
-          </div>
-        </li>
+       
 
       </ul>
 
@@ -213,7 +148,7 @@
 
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <a href="{{route('Print_application_success_slip')}}" class="nav-link">
                 <i class="nav-icon fa fa-users"></i>
                 <p>
                   Print Slip
@@ -223,7 +158,7 @@
 
 
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <a href="{{route('applicant_settings')}}" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Settings
@@ -237,7 +172,7 @@
 
 
             <li class="nav-item">
-              <a href="" data-toggle="modal" data-target="#exampleModal" class="nav-link">
+              <a href="#" data-toggle="modal" data-target="#exampleModal" class="nav-link">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                 <i class="nav-icon far fa-circle text-info"></i>
                 <p>Logout</p>
@@ -276,8 +211,8 @@
               <div class="row">
                 <div class="">
                   <div class="modal-footer">
-                    <a href="{{ route('applicant_home')}}">
-                      <button type="button" class="btn btn-primary" style="float:left;">Cancel</button>
+                    <a href="">
+                      <button type="button" class="btn btn-primary"  data-dismiss="modal" style="float:left;">Cancel</button>
                     </a>
                   </div>
                 </div>
@@ -350,6 +285,25 @@
   <script src="{{ url('assets/js/demo.js')}}"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="{{ url('assets/js/pages/dashboard.js')}}"></script>
+
+  <script>
+$(function () {
+    var url = window.location;
+    // for single sidebar menu
+    $('ul.nav-sidebar a').filter(function () {
+        return this.href == url;
+    }).addClass('active');
+
+    // for sidebar menu and treeview
+    $('ul.nav-treeview a').filter(function () {
+        return this.href == url;
+    }).parentsUntil(".nav-sidebar > .nav-treeview")
+        .css({'display': 'block'})
+        .addClass('menu-open').prev('a')
+        .addClass('active');
+});
+
+</script>
   @yield('script')
 </body>
 

@@ -33,9 +33,9 @@ class adminController extends Controller
         return view('admin.programs',['programs'=>$programs]);
     }
 
-    public function deleteProgram($id){
-        // programs::find($id)->delete();
-        // return redirect()->route('admin.programs')->with('success','Operation sucessfull..');
+    public function deleteProgram(Request $request){
+         programs::where('id',$request->programs_delete)->delete();
+         return back()->with('success','Operation sucessfull..');
 
     }
 
@@ -90,8 +90,8 @@ class adminController extends Controller
 
     }
 
-    public function deleteAdminUser($id){
-        $admin = admin::find($id)->delete();
+    public function deleteAdminUser(Request $request){
+        $admin = admin::where('id',$request->access_delete_id)->delete();
         return back()->with('success','Operation Succesfull..');
     }
 
@@ -120,8 +120,8 @@ class adminController extends Controller
 
     }
 
-    public function deleteProgramAmount($id){
-        $programAmount = ProgramAmount::find($id)->delete();
+    public function deleteProgramAmount(Request $request){
+        $programAmount = ProgramAmount::where('id',$request->programs_amount_delete)->delete();
         return back()->with('sucess','Operation Successful..');
     }
 
@@ -153,8 +153,8 @@ class adminController extends Controller
       return back()->with('success','Operation successful.');
 
     }
-    public function deleteSession($id){
-      AcademicSession::find($id)->delete();
+    public function deleteSession(Request $request){
+      AcademicSession::where('id',$request->session_delete_id)->delete();
       return back()->with('success','Operation Successful..');
     }
 
@@ -283,8 +283,8 @@ public function saveSubjects(Request $request){
 
 }
 
-public function deleteSubject($id){
-    $subject = ApplicationSubjects::find($id)->delete();
+public function deleteSubject(Request $request){
+    $subject = ApplicationSubjects::where('id',$request->subjects_delete)->delete();
     return back()->with('success','Operation Succesful');
 }
 

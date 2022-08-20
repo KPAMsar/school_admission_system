@@ -62,7 +62,7 @@
                                             <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal" data-target="#editModal">
                                                 <i class="fas fa-toggle"></i>
                                             </a>
-                                            <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal" data-target="#deleteModal" href="" class="btn btn-sm bg-danger-light">
+                                            <a href="" class="btn btn-sm bg-success-light mr-2" data-toggle="modal" data-target="#deleteModal" href="" class="btn btn-sm bg-danger-light" onclick="loadDeleteDetails('{{$data->id}}')">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </div>
@@ -220,7 +220,7 @@
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <Form action="{{ route('admin_delete_admin_',$data->id)}}" method="post">
+            <Form action="{{ route('admin_delete_admin_')}}" method="post">
                 @method('DELETE')
                 @csrf
 
@@ -239,6 +239,8 @@
                                 This action is irreversible.
                             </label>
                         </div>
+                    <input type="hidden" name="access_delete_id" id="access_delete_id">
+
 
                     </div>
                 </div>
@@ -312,5 +314,10 @@
             $("#myModal").modal("show");
         });
     });
+
+    function loadDeleteDetails(id){
+        document.getElementById('access_delete_id').value = id;
+        
+    }
 </script>
 @endsection

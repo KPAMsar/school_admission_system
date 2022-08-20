@@ -58,7 +58,7 @@
                                             <a href="{{route('admin_delete_application-subjects',$data->id)}}" class="btn btn-sm bg-success-light " data-toggle="modal" data-target="#editModal" onclick="loadSubjectDetails('{{$data->id}}','{{$data->name}}','{{$data->status}}')">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="{{route('admin_delete_application-subjects',$data->id)}}" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light">
+                                            <a href="{{route('admin_delete_application-subjects',$data->id)}}" class="" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm bg-danger-light" onclick="loadDeleteDetails('{{$data->id}}')">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </div>
@@ -142,7 +142,9 @@
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="#" method="">
+            <form action="{{route('admin_delete_application-subjects')}}" method="post">
+                @method('DELETE')
+                @csrf
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Delete Subject</h5>
@@ -157,6 +159,10 @@
                             <label for="">You are about to delete a Subject
                                 <br>
                                 This action is irreversible.
+                                
+                                <input type="hidden" name="subjects_delete" id="subjects_delete_id">
+                                
+
                             </label>
                         </div>
 
@@ -280,6 +286,10 @@
         document.getElementById('subject_id').value = id;
         document.getElementById('subject').value = subject;
         document.getElementById('status').value = status;
+        
+    }
+    function loadDeleteDetails(id){
+        document.getElementById('subjects_delete_id').value = id;
         
     }
 </script>

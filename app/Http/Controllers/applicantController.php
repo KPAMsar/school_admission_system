@@ -518,8 +518,63 @@ class applicantController extends Controller
 
         return $this->sendEmailWithAttachment($receiver, "Admission Application", $message, $file_encoded, $invoice->code . '.pdf');
     }
+
+    public function showApplicantSettings(){
+        return view('applicants.applicant_settings');
+    }
+
     public function showAdmissionStatus()
     {
-        return view('applicants.admission_status');
+       if($this->verifyLogin()){
+            $biodata = biodata::where('application_number',Session::get('application_number'))->first();
+            $applicant = applicant::where('application_number',Session::get('application_number'))->first();
+
+            if ($biodata != null) {
+                //check if user has already paid
+                $payment = ApplicationPayment::where('application_number', Session::get('application_number'))->first();
+                if ($payment != null) {
+
+                    $applicant = applicant::where('application_number', Session::get('application_number'))->first();
+                        if($applicant == null ){
+                            return redirect('/admissions/dashboard/application');
+                        }
+                        else{
+                            return view('applicants.admission_status');
+                        }
+                    
+                } else {
+                    //user has already made payment
+                    return redirect('/admissions/dashboard/application');
+                }
+            } else {
+                //redirect to bio-data form
+                return redirect()->route('applicant_bio_data');
+            }
+        }
+       else
+       {
+        return redirect()->route('get_applicant_login');
+       }
+    }
+
+    public function changePassword(Request $request){
+        //  $request->validate([
+        //     'old_password'=>'required',
+        //      'password'=> ' confirmed'
+        //  ]);
+
+        $applicant = applicant::where('application_number',Session::get('application_number'))->first();
+        $appliantOldPassword = $applicant->password;
+        $chechPassword = Hash::check($request->old_password, $appliantOldPassword);
+        if($chechPassword  == true){
+            applicant::where('application_number',Session::get('application_number'))->update([
+                'password'=>$request->password,
+            ]);
+            return back()->with('success','Password changed successfully');
+        }
+        else{
+            return back()->with('error', 'Password mismatch');
+        }
+
     }
 }

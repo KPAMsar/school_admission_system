@@ -60,7 +60,7 @@
                                             <a href="" class="btn btn-sm bg-success-light "    data-toggle="modal" data-target="#editAmount" onclick="loadProgramDetails('{{$item->id}}','{{$item->programme}}','{{$item->entry_mode}}','{{$item->amount}}',)">
                                                 <i class="fas fa-edit"></i>
                                             </a> 
-                                            <a href="" class="" data-toggle="modal" data-target="#deleteAmount" class="btn btn-sm bg-danger-light">
+                                            <a href="" class="" data-toggle="modal" data-target="#deleteAmount" class="btn btn-sm bg-danger-light" onclick="loadDeleteDetails('{{$item->id}}')">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </div>
@@ -199,7 +199,7 @@
 <div class="modal fade" id="deleteAmount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{ route('admin_delete_program_amount',$item->id)}}" method="post">
+            <form action="{{ route('admin_delete_program_amount')}}" method="post">
                 @method('DELETE')
                 @csrf
 
@@ -216,6 +216,8 @@
                             <label for="">You are about to delete a program amount
                                 <br>
                                 This action is irreversible.
+                            <input type="hidden" name="programs_amount_delete" id="programs_amount_delete">
+
                             </label>
                         </div>
 
@@ -299,5 +301,10 @@ document.getElementById('programme').value = programme;
 document.getElementById('entry_mode').value = entry_mode;
 document.getElementById('amount').value = amount;
 }
+
+function loadDeleteDetails(id){
+        document.getElementById('programs_amount_delete').value = id;
+        
+    }
 </script>
 @endsection

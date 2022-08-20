@@ -47,12 +47,12 @@
               <div class="inner">
                 <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-                <p>Succesful Applicants</p>
+                <p>Admitted Applicants</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer" >More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -62,7 +62,7 @@
               <div class="inner">
                 <h3>44</h3>
 
-                <p>User Registrations</p>
+                <p>Completed Registration</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -538,7 +538,7 @@
                   </div>
                   <!-- ./col -->
                   <div class="col-4 text-center">
-                    <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
+                    <input type="text" class="knob" data-readonly="true" value="90" data-width="60" data-height="60"
                            data-fgColor="#39CCCC">
 
                     <div class="text-white">Online</div>
@@ -605,4 +605,9 @@
     </section>
     <!-- /.content -->
   </div>
+
+
+
+
+
 @endsection
